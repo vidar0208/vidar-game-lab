@@ -13,7 +13,7 @@ namespace GameTech
         public bool autoArmDown = true;   // set armDown from the bind pose so the arms end about 18 degrees out from vertical
         public bool idle = true;
         public bool blink = true;          // drives a blend shape named "Blink" (0 open, 100 closed) if the model has one
-        SkinnedMeshRenderer blinkMesh; int blinkShape = -1; float nextBlink = 1.5f;
+        SkinnedMeshRenderer blinkMesh; int blinkShape = -1; float nextBlink = 1.5f; bool lidsOnly;
         readonly System.Random blinkRng = new System.Random(7);   // fixed seed: the same blinks on every render
         readonly Dictionary<string, Transform> bones = new Dictionary<string, Transform>();
         readonly Dictionary<Transform, Quaternion> bind = new Dictionary<Transform, Quaternion>();
@@ -41,7 +41,7 @@ namespace GameTech
             if (anim != null && anim.isHuman)
                 foreach (var kv in Human) { var b = anim.GetBoneTransform(kv.Value); if (b != null) bones[kv.Key] = b; }
             foreach (var smr in GetComponentsInChildren<SkinnedMeshRenderer>(true))
-                if (smr.sharedMesh != null && smr.sharedMesh.GetBlendShapeIndex("Blink") >= 0) { blinkMesh = smr; blinkShape = smr.sharedMesh.GetBlendShapeIndex("Blink"); break; }
+                if (smr.sharedMesh != null && smr.sharedMesh.GetBlendShapeIndex("Blink") >= 0) { blinkMesh = smr; blinkShape = smr.sharedMesh.GetBlendShapeIndex("Blink"); lidsOnly = smr.name.ToLowerInvariant().Contains("lid"); break; }
             var up = Bone("Upperarm_L"); var low = Bone("Lowerarm_L");
             if (autoArmDown && up != null && low != null)
                 armDown = Vector3.Angle(low.position - up.position, -transform.up) - 18f;   // T-pose: 72, A-pose 8 degrees out: -10
@@ -73,7 +73,10 @@ namespace GameTech
             {
                 if (t >= nextBlink + 0.1f) nextBlink = t + 2.5f + (float)blinkRng.NextDouble() * 3.5f;
                 // on/off, no fade: the lids are hidden inside the head when open
-                blinkMesh.SetBlendShapeWeight(blinkShape, blink && t >= nextBlink && t < nextBlink + 0.1f ? 100f : 0f);
+                bool shut = blink && t >= nextBlink && t < nextBlink + 0.1f;
+                blinkMesh.SetBlendShapeWeight(blinkShape, shut ? 100f : 0f);
+                // a separate eyelid mesh is hidden while the eyes are open, so outlines or shadows of the hidden lids never show
+                if (lidsOnly) blinkMesh.enabled = shut;
             }
             if (!idle) return;
             ResetPose();

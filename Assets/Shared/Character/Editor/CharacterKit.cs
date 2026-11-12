@@ -27,6 +27,14 @@ namespace GameTech
                     imp.SaveAndReimport();
                     Debug.Log("[gt] character model set to Humanoid: " + path);
                 }
+                // tiny textures next to the model are colour strips: sample them without blending or mip maps
+                foreach (var tg in AssetDatabase.FindAssets("t:Texture2D", new[] { ModelDir }))
+                {
+                    var ti = AssetImporter.GetAtPath(AssetDatabase.GUIDToAssetPath(tg)) as TextureImporter;
+                    var tx = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(tg));
+                    if (ti == null || tx == null || Mathf.Max(tx.width, tx.height) > 64 || (ti.filterMode == FilterMode.Point && !ti.mipmapEnabled)) continue;
+                    ti.filterMode = FilterMode.Point; ti.mipmapEnabled = false; ti.SaveAndReimport();
+                }
                 var go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
                 if (go != null) return go;
             }
