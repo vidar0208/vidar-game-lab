@@ -19,6 +19,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Digital rain](Assets/Techniques/matrix-rain) | Falling glyphs projected onto every surface, then the surface drops away. | yes |
 | [Six-way smoke lighting](Assets/Techniques/smoke-lighting) | Six baked lightmaps per smoke sprite, mixed by the light direction. | |
 | [Ropes and cables](Assets/Techniques/ropes-and-cables) | Two fixed ends and one sprung midpoint shape a cheap rope. | |
+| [Parallax mapping](Assets/Techniques/parallax-mapping) | A ray marches through a height map so flat quads show bricks, a hole and a valley. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

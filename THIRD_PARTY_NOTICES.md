@@ -14,6 +14,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`matrix-rain`](Assets/Techniques/matrix-rain) | [MatrixVFX](https://github.com/IRCSS/MatrixVFX) by Shahriar Shahrabi (IRCSS), commit `939d371` | MIT | GenerateWhiteNoise.compute used as is; shader functions rewritten for URP. |
 | [`smoke-lighting`](Assets/Techniques/smoke-lighting) | [Unity-URP-SmokeLighting](https://github.com/peeweek/Unity-URP-SmokeLighting) by Thomas Iché (peeweek), commit `0417387` | MIT | Lighting sub-graphs rewritten in HLSL. |
 | [`ropes-and-cables`](Assets/Techniques/ropes-and-cables) | [OptimizedRopesAndCables](https://github.com/Ali10555/OptimizedRopesAndCables) by Ali Rasheed (Ali10555), commit `c063a92` | MIT | Rope.cs, RopeMesh.cs and RopeWindEffect.cs in Source/ are unchanged; Source/LICENSE is the original licence file. |
+| [`parallax-mapping`](Assets/Techniques/parallax-mapping) | [Unity-Advanced-Shaders-Tutorial](https://github.com/Habrador/Unity-Advanced-Shaders-Tutorial) by Erik Nordeus (Habrador), commit `dffb554`, Parallax mapping folder | MIT | Three surface shaders rewritten as one URP shader. Textures in Tex/ are from Poly Haven (CC0): red_brick_03 by Rob Tuytel, rocky_terrain_02 by Amal Kumar. |
 
 ## Licence texts
 
@@ -211,6 +212,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2024 Ali Rasheed
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Unity-Advanced-Shaders-Tutorial (parallax-mapping)
+
+```
+MIT License
+
+Copyright (c) 2022 Erik Nordeus
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
