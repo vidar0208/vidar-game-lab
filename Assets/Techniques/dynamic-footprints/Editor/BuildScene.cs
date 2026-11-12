@@ -58,7 +58,7 @@ namespace GameTech.Posts
 
             var chr = CharacterKit.Spawn(Lit, Dir, (m, name) =>
             {
-                m.SetFloat("_Smoothness", 0.15f); m.SetFloat("_Cull", 0f);
+                m.SetFloat("_Smoothness", 0.15f);
                 if (name == "face_alpha" || name == "Halo") { m.SetFloat("_AlphaClip", 1f); m.EnableKeyword("_ALPHATEST_ON"); m.SetFloat("_Cutoff", 0.5f); m.renderQueue = 2450; }
             });
             var chrOff = Object.Instantiate(chr);

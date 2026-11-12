@@ -53,7 +53,9 @@ Scenes marked in the Character column have a character in them. The character in
 Without a model these scenes build a simple stand-in mannequin from code (`Assets/Shared/Character/Editor/Mannequin.cs`), so they build and render as they are.
 To use your own rigged character, put one FBX or prefab in `Assets/Shared/Character/Model/` (git ignores that folder).
 The model is switched to a Humanoid rig on first use. The scenes are framed for a character about 1.4 m tall; T-pose and A-pose both work.
-`Editor/CharacterKit.cs` loads it and gives every material the technique's shader, and `CharacterRig.cs` poses it.
+`Editor/CharacterKit.cs` loads it, gives every material the technique's shader and puts it under an empty root that the scenes move and turn.
+MonoBehaviour scripts you place next to the model (a hair simulation, for example) are added to that root.
+`CharacterRig.cs` poses it, and blinks it if the model has a blend shape named `Blink` (0 open, 100 closed).
 
 ## Layout
 

@@ -140,7 +140,7 @@ namespace GameTech.Posts
             var dabs = Dabs();
             var chr = CharacterKit.Spawn(Toon, Dir, (m, name) =>
             {
-                m.SetFloat("_Cull", 0f); m.SetTexture("_DabsTex", dabs);
+                m.SetTexture("_DabsTex", dabs);
                 m.SetFloat("_SpecStrength", name.StartsWith("face") ? 0f : 1f);
                 if (name == "face_alpha" || name == "Halo") m.SetFloat("_Cutoff", 0.5f);
             });
