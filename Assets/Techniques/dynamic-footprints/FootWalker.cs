@@ -1,4 +1,4 @@
-// Procedural walk for IA (feet planted in world space, two-bone leg IK) plus the foot-to-ground force model and the
+// Procedural walk for the character (feet planted in world space, two-bone leg IK) plus the foot-to-ground force model and the
 // heightmap deformation of edualvarado/unity-footprints (MIT):
 //   DeformTerrainMaster.CalculateForceModel  -> weight share, momentum force = impulse / contact time
 //   PhysicalFootprint.DrawFootprint          -> contact cells, pressure, Young compression, Poisson ring volume, per-frame brush
@@ -33,13 +33,13 @@ namespace GameTech.Posts
         }
         public Foot[] feet = new Foot[2];
         public float simT, rootZ;
-        IARig rig; Transform hips; float ankleH, hipY = -1, worldX, swaySm; Vector3 hipMidLocal; bool ready;
+        CharacterRig rig; Transform hips; float ankleH, hipY = -1, worldX, swaySm; Vector3 hipMidLocal; bool ready;
 
         static float Frac(float x) => x - Mathf.Floor(x);
 
         void Start()
         {
-            rig = GetComponent<IARig>(); rig.idle = false;
+            rig = GetComponent<CharacterRig>(); rig.idle = false;
             worldX = transform.position.x; transform.rotation = Quaternion.identity; transform.position = new Vector3(worldX, 0, 0);
             rig.ResetPose();
             hips = rig.Bone("Hips");

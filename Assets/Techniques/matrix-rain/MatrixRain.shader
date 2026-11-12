@@ -2,7 +2,7 @@
 // Same render state (additive, no depth write, no culling) and the same fragment logic: three world-space
 // projections of the glyph rain, blended by the normal raised to a power, cut by the two transition tests.
 // Added: _MX_Mode (1 = front projection only, for the comparison shot), optional alpha clip from a base map
-// (IA's hair cards), _MX_Scale and _MX_Sharpness as values instead of #defines.
+// (hair cards), _MX_Scale and _MX_Sharpness as values instead of #defines.
 Shader "GameTech/MatrixRain"
 {
     Properties

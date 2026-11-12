@@ -1,16 +1,28 @@
-// Poses the IA model (imported in T-pose, no animation clips): arms down plus a small idle motion.
-// All rotations are applied as world-space deltas on top of the bind pose, so bone-local axes do not matter.
+// Poses the scene character: arms down from the bind pose plus a small idle motion.
+// Bones are found by Unity Humanoid mapping when the model has a human Avatar, otherwise by transform name
+// (the stand-in mannequin uses the names below). All rotations are world-space deltas on top of the bind pose,
+// so bone-local axes do not matter. armDown assumes a T-pose bind pose; lower it for an A-pose model.
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameTech
 {
-    public class IARig : MonoBehaviour
+    public class CharacterRig : MonoBehaviour
     {
         public float armDown = 72f;
         public bool idle = true;
         readonly Dictionary<string, Transform> bones = new Dictionary<string, Transform>();
         readonly Dictionary<Transform, Quaternion> bind = new Dictionary<Transform, Quaternion>();
+
+        static readonly Dictionary<string, HumanBodyBones> Human = new Dictionary<string, HumanBodyBones>
+        {
+            { "Hips", HumanBodyBones.Hips }, { "Spine", HumanBodyBones.Spine }, { "Chest", HumanBodyBones.Chest },
+            { "Neck", HumanBodyBones.Neck }, { "Head", HumanBodyBones.Head },
+            { "Upperarm_L", HumanBodyBones.LeftUpperArm }, { "Lowerarm_L", HumanBodyBones.LeftLowerArm }, { "Hand_L", HumanBodyBones.LeftHand },
+            { "Upperarm_R", HumanBodyBones.RightUpperArm }, { "Lowerarm_R", HumanBodyBones.RightLowerArm }, { "Hand_R", HumanBodyBones.RightHand },
+            { "Upperleg_L", HumanBodyBones.LeftUpperLeg }, { "Lowerleg_L", HumanBodyBones.LeftLowerLeg }, { "Foot_L", HumanBodyBones.LeftFoot },
+            { "Upperleg_R", HumanBodyBones.RightUpperLeg }, { "Lowerleg_R", HumanBodyBones.RightLowerLeg }, { "Foot_R", HumanBodyBones.RightFoot },
+        };
 
         public Transform Bone(string name) => bones.TryGetValue(name, out var t) ? t : null;
 
@@ -21,6 +33,9 @@ namespace GameTech
                 if (!bones.ContainsKey(t.name)) bones[t.name] = t;
                 bind[t] = t.localRotation;
             }
+            var anim = GetComponentInChildren<Animator>();
+            if (anim != null && anim.isHuman)
+                foreach (var kv in Human) { var b = anim.GetBoneTransform(kv.Value); if (b != null) bones[kv.Key] = b; }
         }
 
         public void ResetPose() { foreach (var kv in bind) kv.Key.localRotation = kv.Value; }

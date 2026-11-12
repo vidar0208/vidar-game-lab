@@ -50,8 +50,6 @@ Technique source: BotW-ToonShader by Ciro Continisio (ciro-unity), https://githu
 
 Engine: Unity 6.3 LTS (6000.3.28f1) with the Universal Render Pipeline 17.3. Used for rendering, and its PBR lighting is the comparison side. It is not the source of the technique.
 
-Character: モデル：葉葉波、キャラクターデザイン：えびごはん (©はっぱろぐ！・えびごはん・EAUploader). Fan-made reproduction, not official. #いあ3D
-
 My own code: the HLSL port with its stage switch and rim switch, the generated dab texture, the terrain, grass, rocks and tree, the pose and idle motion, camera moves, labels and video.
 
 ## Files
@@ -64,4 +62,4 @@ My own code: the HLSL port with its stage switch and rim switch, the generated d
 
 In the Unity editor: **Vidar Game Lab > Techniques**, then **Build** next to `toon-shader`. From the command line: `tools/capture.sh toon-shader GameTech.Posts.ToonScene.Build`.
 
-This scene uses the IA character model, which is not in this repository. See the main README.
+The character in the video is not included in this repository. Without it the scene builds a simple stand-in mannequin. To use your own model, see the main README.

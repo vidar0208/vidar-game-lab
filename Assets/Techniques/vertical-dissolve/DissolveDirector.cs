@@ -1,5 +1,5 @@
 // Timeline for the vertical dissolve post: writes the dissolve parameters into the materials every frame
-// (the source ships a DissolveControl example script for the same job), moves cameras, IA and the two test pods.
+// (the source ships a DissolveControl example script for the same job), moves cameras, the character and the two test pods.
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -9,9 +9,9 @@ namespace GameTech.Posts
     public class DissolveDirector : MonoBehaviour
     {
         public Camera camL, camR, camFull;
-        public Material[] iaMats;
+        public Material[] chrMats;
         public Material podMatL, podMatR;          // L / R = left / right on screen
-        public Transform ia, podL, podR;
+        public Transform chr, podL, podR;
 
         static readonly Color Blue = new Color(0.05f, 0.5f, 0.9f), Orange = new Color(1.3f, 0.38f, 0.05f);
 
@@ -43,14 +43,14 @@ namespace GameTech.Posts
             float t = FrameCapturer.T;
             bool A = t < 9f, pods = t >= 13f;
             camL.enabled = camR.enabled = A; camFull.enabled = !A;
-            ia.gameObject.SetActive(!pods); podL.gameObject.SetActive(pods); podR.gameObject.SetActive(pods);
+            chr.gameObject.SetActive(!pods); podL.gameObject.SetActive(pods); podR.gameObject.SetActive(pods);
             Shader.SetGlobalFloat("_VD_Time", t); Shader.SetGlobalFloat("_VD_Simple", 0f);
 
             float fill = 0.87f, invert = 0f;
             if (A)
             {
                 fill = Key(t, 0.3f, 0.87f, 4.0f, 0.20f, 4.6f, 0.20f, 8.6f, 0.87f);
-                ia.rotation = Quaternion.Euler(0, -18f + t * 5f, 0);
+                chr.rotation = Quaternion.Euler(0, -18f + t * 5f, 0);
                 Vector3 p = Vector3.Lerp(new Vector3(0f, 0.14f, 3.25f), new Vector3(0f, 0.10f, 2.95f), S(0f, 9f, t));
                 Look(camL, p, new Vector3(0, 0.02f, 0)); Look(camR, p, new Vector3(0, 0.02f, 0));
             }
@@ -58,11 +58,11 @@ namespace GameTech.Posts
             {
                 if (t < 11f) fill = Mathf.Lerp(0.87f, 0.14f, S(9.2f, 10.8f, t));
                 else { invert = 1f; fill = Mathf.Lerp(0.87f, 0.13f, S(11.2f, 12.8f, t)); }
-                ia.rotation = Quaternion.Euler(0, 27f - (t - 9f) * 6f, 0);
+                chr.rotation = Quaternion.Euler(0, 27f - (t - 9f) * 6f, 0);
                 float a = Mathf.Lerp(24f, 8f, S(9f, 13f, t)) * Mathf.Deg2Rad;
                 Look(camFull, new Vector3(Mathf.Sin(a) * 3.7f, 0.2f, Mathf.Cos(a) * 3.7f), new Vector3(0, 0.0f, 0));
             }
-            foreach (var m in iaMats) Set(m, fill, invert, 0.35f, 4f, 0.04f, Blue, 1f);
+            foreach (var m in chrMats) Set(m, fill, invert, 0.35f, 4f, 0.04f, Blue, 1f);
 
             if (pods)
             {

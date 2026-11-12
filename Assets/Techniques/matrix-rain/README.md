@@ -52,8 +52,6 @@ Engine: Unity 6.3 LTS (6000.3.28f1) with the Universal Render Pipeline 17.3. Use
 
 My own code: the generated glyph atlas, the lit base shader, the Lab colour conversion, the hall built from code, the timeline, camera moves, labels and video.
 
-Character: IA. モデル：葉葉波、キャラクターデザイン：えびごはん (©はっぱろぐ！・えびごはん・EAUploader). Fan-made reproduction, not official. #いあ3D
-
 ## Files
 
 - `Editor/BuildScene.cs`
@@ -68,4 +66,4 @@ Character: IA. モデル：葉葉波、キャラクターデザイン：えび�
 
 In the Unity editor: **Vidar Game Lab > Techniques**, then **Build** next to `matrix-rain`. From the command line: `tools/capture.sh matrix-rain GameTech.Posts.MatrixScene.Build`.
 
-This scene uses the IA character model, which is not in this repository. See the main README.
+The character in the video is not included in this repository. Without it the scene builds a simple stand-in mannequin. To use your own model, see the main README.

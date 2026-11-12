@@ -36,7 +36,7 @@ The source blends its projections with the signed normal. I use the absolute val
 
 Unity 6.3 with URP on an M4 Mac mini. The shader keeps the source's property names and default values from its sample material.
 
-The scene is built from code: displaced rocks and mountains, pines, an arched bridge, a pavilion, plus IA on the bridge. The stroke texture is the one from the repo; the remap, noise and paper grain are generated.
+The scene is built from code: displaced rocks and mountains, pines, an arched bridge, a pavilion, plus a character on the bridge. The stroke texture is the one from the repo; the remap, noise and paper grain are generated.
 
 The video compares URP Lit with the ink version, adds the three steps one by one, toggles FeiBai and shows the distance remap.
 
@@ -64,8 +64,6 @@ Texture: Stroke_3 from the same repository (MIT, Copyright (c) 2023 sacshadow), 
 
 Engine: Unity 6.3 LTS (6000.3.28f1) with the Universal Render Pipeline 17.3. Used for rendering. It is not the source of the technique.
 
-Character: IA. モデル：葉葉波、キャラクターデザイン：えびごはん (©はっぱろぐ！・えびごはん・EAUploader). Fan-made reproduction, not official. #いあ3D
-
 This is a procedural imitation of Chinese ink painting, not painted by hand.
 
 My own code: the URP passes and gamma-space conversion, the remap, noise and paper textures generated from code, the landscape, pines, bridge and pavilion built from code, the timeline, labels and video.
@@ -82,4 +80,4 @@ My own code: the URP passes and gamma-space conversion, the remap, noise and pap
 
 In the Unity editor: **Vidar Game Lab > Techniques**, then **Build** next to `ink-painting`. From the command line: `tools/capture.sh ink-painting GameTech.Posts.InkPaintScene.Build`.
 
-This scene uses the IA character model, which is not in this repository. See the main README.
+The character in the video is not included in this repository. Without it the scene builds a simple stand-in mannequin. To use your own model, see the main README.

@@ -1,5 +1,5 @@
 // 78 ink painting: rocks, two pines, an arched bridge, a pavilion on a far mound and layered mountains, all built
-// from code with welded (smooth) normals so the back-face outlines stay closed. IA stands on the bridge.
+// from code with welded (smooth) normals so the back-face outlines stay closed. The character stands on the bridge.
 // Three copies of the scene: URP Lit (layer 8), ink with video switches (layer 8), ink (layer 9).
 // Stroke texture: Stroke_3 from the source repository (MIT). Remap, noise and paper textures are generated here.
 using System.Collections.Generic;
@@ -294,12 +294,12 @@ namespace GameTech.Posts
             var skyMesh = Lathe("SkySphere", Enumerable.Range(0, 17).Select(i => { float th = Mathf.PI * i / 16; return new Vector2(Mathf.Sin(th) * 400f + 0.01f, -Mathf.Cos(th) * 400f); }).ToArray(), 32);
             foreach (var (root, layer) in new[] { (inkLRoot, 8), (inkRRoot, 9) }) { var g = SceneKit.Part("Paper sky", skyMesh, skyMat, Vector3.zero, Quaternion.identity, root); g.layer = layer; }
 
-            // ---- IA on the bridge: Lit / ink left / ink right
-            var iaPos = new Vector3(0.7f, 6f, 6f); iaPos.y = Arch(0.7f) + 0.2f;
-            foreach (var (root, layer, shader, sub) in new[] { (litRoot, 8, Lit, "IALit"), (inkLRoot, 8, Ink, "IAInkL"), (inkRRoot, 9, Ink, "IAInkR") })
+            // ---- the character on the bridge: Lit / ink left / ink right
+            var chrPos = new Vector3(0.7f, 6f, 6f); chrPos.y = Arch(0.7f) + 0.2f;
+            foreach (var (root, layer, shader, sub) in new[] { (litRoot, 8, Lit, "CharLit"), (inkLRoot, 8, Ink, "CharInkL"), (inkRRoot, 9, Ink, "CharInkR") })
             {
                 if (!AssetDatabase.IsValidFolder(Dir + sub)) AssetDatabase.CreateFolder(Dir.TrimEnd('/'), sub);
-                var ia = IAKit.Spawn(shader, Dir + sub + "/", (m, n) =>
+                var chr = CharacterKit.Spawn(shader, Dir + sub + "/", (m, n) =>
                 {
                     if (shader == Lit) { m.SetFloat("_Smoothness", 0.25f); return; }
                     m.SetTexture("_ColorRemap", remap); m.SetTexture("_OutlineNoiseFB", fb); m.SetTexture("_OutlineNoiseColor", ocol);
@@ -307,10 +307,10 @@ namespace GameTech.Posts
                     m.SetColor("_RimColor", new Color(0.30f, 0.30f, 0.32f)); m.SetFloat("_AlbedoMix", 0.35f);
                     m.SetVector("_OutlineCtrl", new Vector4(5f, 1.5f, 4f, 0.25f));   // thinner lines on the 1.39 m character
                     m.SetVector("_Size", new Vector4(2.5f, 10f, 50f, 10f));
-                    if (sub == "IAInkL") inkLeft.Add(m);
+                    if (sub == "CharInkL") inkLeft.Add(m);
                 });
-                ia.transform.SetParent(root, false); ia.transform.position = iaPos; ia.transform.rotation = Quaternion.Euler(0, 200, 0);
-                SetLayer(ia, layer);
+                chr.transform.SetParent(root, false); chr.transform.position = chrPos; chr.transform.rotation = Quaternion.Euler(0, 200, 0);
+                SetLayer(chr, layer);
             }
 
             // ---- director, cameras, labels

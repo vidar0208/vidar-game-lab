@@ -1,4 +1,4 @@
-// 68 toon shading: IA on a grassy rise with rocks and a tree, everything shaded by GameTech/ZeldaToon.
+// 68 toon shading: the character on a grassy rise with rocks and a tree, everything shaded by GameTech/ZeldaToon.
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -136,15 +136,15 @@ namespace GameTech.Posts
                 go.transform.localScale = new Vector3(48f, 20f + 8f * Mathf.Sin(i * 1.3f), 36f);
             }
 
-            // ---- IA
+            // ---- character
             var dabs = Dabs();
-            var ia = IAKit.Spawn(Toon, Dir, (m, name) =>
+            var chr = CharacterKit.Spawn(Toon, Dir, (m, name) =>
             {
                 m.SetFloat("_Cull", 0f); m.SetTexture("_DabsTex", dabs);
                 m.SetFloat("_SpecStrength", name.StartsWith("face") ? 0f : 1f);
                 if (name == "face_alpha" || name == "Halo") m.SetFloat("_Cutoff", 0.5f);
             });
-            ia.transform.position = new Vector3(0, H(0, 0), 0);
+            chr.transform.position = new Vector3(0, H(0, 0), 0);
 
             // ---- cameras, post, director, labels
             var d = new GameObject("Director").AddComponent<ToonDirector>();

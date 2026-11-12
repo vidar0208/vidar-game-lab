@@ -1,4 +1,4 @@
-// 71 post-processing scan: a procedural warehouse at night, IA at the centre, scan rings drawn by one full-viewport quad.
+// 71 post-processing scan: a procedural warehouse at night, the character at the centre, scan rings drawn by one full-viewport quad.
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -149,9 +149,9 @@ namespace GameTech.Posts
             Spot("Work light", new Vector3(-2.2f, 1.9f, 2.5f), new Vector3(0, 0.9f, 0), new Color(1f, 0.80f, 0.58f), 36f, 12f, 62f, true);
             Spot("Rim light", new Vector3(2.6f, 3.2f, -4.2f), new Vector3(0, 1.1f, 0), new Color(0.45f, 0.62f, 1f), 45f, 10f, 50f, false);
 
-            // ---- IA and the origin beacon
-            var ia = IAKit.Spawn(Lit, Dir, (m, n) => { m.SetFloat("_Smoothness", 0.2f); });
-            ia.transform.position = Vector3.zero; ia.transform.rotation = Quaternion.Euler(0, 12f, 0);
+            // ---- character and the origin beacon
+            var chr = CharacterKit.Spawn(Lit, Dir, (m, n) => { m.SetFloat("_Smoothness", 0.2f); });
+            chr.transform.position = Vector3.zero; chr.transform.rotation = Quaternion.Euler(0, 12f, 0);
             var beacon = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             beacon.name = "Beacon"; Object.DestroyImmediate(beacon.GetComponent<Collider>()); beacon.transform.localScale = Vector3.one * 0.15f;
             var br = beacon.GetComponent<Renderer>(); br.sharedMaterial = beaconGlow; br.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;

@@ -7,7 +7,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 
 ## Techniques
 
-| Technique | What it does | IA |
+| Technique | What it does | Character |
 |---|---|---|
 | [Toon shader](Assets/Techniques/toon-shader) | Flat light bands, back rim, lit rim and stepped specular in place of PBR shading. | yes |
 | [Dynamic footprints](Assets/Techniques/dynamic-footprints) | Weight and landing impulse pressed into a heightmap, with snow, mud and sand. | yes |
@@ -47,19 +47,19 @@ tools/capture.sh smoke-lighting GameTech.Posts.SmokeScene.Build
 This builds the scene, renders every frame in batch mode at a fixed time step and encodes `Recordings/<technique>/video.mp4`.
 The builder name for each technique is in its README.
 
-## The IA character
+## The character
 
-Scenes marked IA in the table use the IA character model. The model is not included: its licence (VN3) does not allow redistributing the model files.
-To run those scenes, get the model from its official distribution and put `ia.fbx` and its textures in `Assets/Shared/IA/`.
-The scripts there (`IARig.cs`, `Editor/IAKit.cs`) load it, apply the material and pose it.
-
-IA. モデル：葉葉波、キャラクターデザイン：えびごはん (©はっぱろぐ！・えびごはん・EAUploader). Fan-made reproduction, not official. #いあ3D
+Scenes marked in the Character column have a character in them. The character in the videos is not included in this repository.
+Without a model these scenes build a simple stand-in mannequin from code (`Assets/Shared/Character/Editor/Mannequin.cs`), so they build and render as they are.
+To use your own rigged character, put one FBX or prefab in `Assets/Shared/Character/Model/` (git ignores that folder).
+A Unity Humanoid rig works best; the scenes are framed for a character about 1.4 m tall, imported in T-pose.
+`Editor/CharacterKit.cs` loads it and gives every material the technique's shader, and `CharacterRig.cs` poses it.
 
 ## Layout
 
 - `Assets/Techniques/<technique>/`: the scene builder, runtime scripts and shaders of one technique.
 - `Assets/_Pipeline/`: shared helpers for every technique: frame-by-frame capture (`FrameCapturer`, `BatchCapture`), on-screen labels (`LabelSpec`), procedural meshes (`MeshKit`), scene setup (`SceneKit`) and the technique window.
-- `Assets/Shared/IA/`: helper scripts for the IA character (model not included).
+- `Assets/Shared/Character/`: spawns the scene character (your model or the stand-in mannequin) and poses it.
 - `tools/capture.sh`: batch render and encode.
 
 ## Licence

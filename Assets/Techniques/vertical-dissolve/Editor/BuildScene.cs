@@ -1,5 +1,5 @@
-// 73 vertical dissolve: IA on a dark stage, then two hovering test pods for the coordinate and parameter comparisons.
-// The stage floor sits at y = -0.70 so that IA (1.39 m) spans about -0.70..0.69 and the source's fill remap
+// 73 vertical dissolve: the character on a dark stage, then two hovering test pods for the coordinate and parameter comparisons.
+// The stage floor sits at y = -0.70 so that the 1.39 m character spans about -0.70..0.69 and the source's fill remap
 // (0..1 -> -1..1 in metres) covers her without changing the formula.
 using System.Collections.Generic;
 using UnityEditor;
@@ -54,10 +54,10 @@ namespace GameTech.Posts
             SceneKit.Part("Bars warm", warm.Build("BarsWarm"), Glow("BarWarm", new Color(1.6f, 0.62f, 0.2f)), Vector3.zero, Quaternion.identity).GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             SceneKit.Part("Bars cool", cool.Build("BarsCool"), Glow("BarCool", new Color(0.12f, 0.7f, 1.2f)), Vector3.zero, Quaternion.identity).GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
-            // ---- IA with the dissolve shader on every material
-            var iaMats = new List<Material>();
-            var ia = IAKit.Spawn(VD, Dir, (m, n) => { m.SetFloat("_Smoothness", 0.2f); m.SetFloat("_Worldcoordinates", 1f); iaMats.Add(m); });
-            ia.transform.position = new Vector3(0, floorY, 0);
+            // ---- character with the dissolve shader on every material
+            var chrMats = new List<Material>();
+            var chr = CharacterKit.Spawn(VD, Dir, (m, n) => { m.SetFloat("_Smoothness", 0.2f); m.SetFloat("_Worldcoordinates", 1f); chrMats.Add(m); });
+            chr.transform.position = new Vector3(0, floorY, 0);
 
             // ---- two test pods (closed solids of revolution, 1 m tall, centred on their own origin)
             var podMesh = new MeshKit().Lathe(new[] { new Vector2(-0.5f, 0), new Vector2(-0.5f, 0.2f), new Vector2(-0.44f, 0.29f), new Vector2(-0.1f, 0.33f),
@@ -73,7 +73,7 @@ namespace GameTech.Posts
             dr.podMatL = PodMat("PodLeft"); dr.podMatR = PodMat("PodRight");
             dr.podL = SceneKit.Part("Pod left", podMesh, dr.podMatL, new Vector3(0.85f, 0.05f, 0), Quaternion.identity).transform;
             dr.podR = SceneKit.Part("Pod right", podMesh, dr.podMatR, new Vector3(-0.85f, 0.05f, 0), Quaternion.identity).transform;
-            dr.ia = ia.transform; dr.iaMats = iaMats.ToArray();
+            dr.chr = chr.transform; dr.chrMats = chrMats.ToArray();
 
             var bg = new Color(0.012f, 0.014f, 0.022f);
             dr.camL = SceneKit.Cam("Camera OFF", new Rect(0, 0, 0.5f, 1), 30, bg, 0);
@@ -99,7 +99,7 @@ namespace GameTech.Posts
                 LabelSpec.Create(left[i], 0.12f, 0.05f).During(a, b);
                 LabelSpec.Create(right[i], 0.62f, 0.05f).During(a, b);
             }
-            Debug.Log($"[gt] dissolve scene: {iaMats.Count} IA materials");
+            Debug.Log($"[gt] dissolve scene: {chrMats.Count} character materials");
         }
     }
 }

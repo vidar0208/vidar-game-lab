@@ -46,8 +46,6 @@ Technique source: unity-footprints by Eduardo Alvarado (edualvarado), https://gi
 
 Engine: Unity 6.3 LTS (6000.3.28f1) with the Universal Render Pipeline 17.3. Used for rendering. It is not the source of the technique.
 
-Character: モデル：葉葉波、キャラクターデザイン：えびごはん (©はっぱろぐ！・えびごはん・EAUploader). Fan-made reproduction, not official. #いあ3D
-
 My own code: the heightfield mesh, the sole contact shape taken from the character mesh, the procedural walk and leg IK, the debug overlay, camera moves, labels and video. No textures or other external assets.
 
 ## Files
@@ -61,4 +59,4 @@ My own code: the heightfield mesh, the sole contact shape taken from the charact
 
 In the Unity editor: **Vidar Game Lab > Techniques**, then **Build** next to `dynamic-footprints`. From the command line: `tools/capture.sh dynamic-footprints GameTech.Posts.FootprintScene.Build`.
 
-This scene uses the IA character model, which is not in this repository. See the main README.
+The character in the video is not included in this repository. Without it the scene builds a simple stand-in mannequin. To use your own model, see the main README.

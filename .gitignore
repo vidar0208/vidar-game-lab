@@ -26,6 +26,6 @@
 /Assets/Techniques/**/*.meta
 /Assets/Techniques.meta
 
-# IA character model: not redistributed here (see README)
-/Assets/Shared/IA/*.fbx
-/Assets/Shared/IA/*.png
+# Your own character model (see README): never committed
+/Assets/Shared/Character/Model/
+/Assets/Shared/Character/Model.meta

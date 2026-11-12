@@ -314,9 +314,7 @@ SOFTWARE.
 
 ## Character model
 
-Scenes marked IA use the IA character model, which is not included in this repository.
-
-IA. モデル：葉葉波、キャラクターデザイン：えびごはん (©はっぱろぐ！・えびごはん・EAUploader). Fan-made reproduction, not official. #いあ3D
+No character model is included in this repository. Scenes with a character build a stand-in mannequin from code, which is part of this repository's own code (MIT).
 
 ## Engine
 

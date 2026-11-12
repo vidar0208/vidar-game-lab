@@ -50,8 +50,6 @@ Technique source: Post-Processing Scan by Mirza Beig, https://github.com/MirzaBe
 
 Engine: Unity 6.3 LTS (6000.3.28f1) with the Universal Render Pipeline 17.3. Used for rendering. It is not the source of the technique.
 
-Character: モデル：葉葉波、キャラクターデザイン：えびごはん (©はっぱろぐ！・えびごはん・EAUploader). Fan-made reproduction, not official. #いあ3D
-
 My own code: the HLSL rewrite and its three debug outputs, the timeline script that sets the parameters and moves the origin, the warehouse scene built from code, lighting, camera moves, labels and video. No external models or textures besides the character.
 
 ## Files
@@ -64,4 +62,4 @@ My own code: the HLSL rewrite and its three debug outputs, the timeline script t
 
 In the Unity editor: **Vidar Game Lab > Techniques**, then **Build** next to `post-processing-scan`. From the command line: `tools/capture.sh post-processing-scan GameTech.Posts.ScanScene.Build`.
 
-This scene uses the IA character model, which is not in this repository. See the main README.
+The character in the video is not included in this repository. Without it the scene builds a simple stand-in mannequin. To use your own model, see the main README.

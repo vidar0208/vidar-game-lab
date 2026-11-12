@@ -1,4 +1,4 @@
-// 75 digital rain: IA on a plinth in a dark hall with an arch, slabs, a sphere and a tilted cube.
+// 75 digital rain: the character on a plinth in a dark hall with an arch, slabs, a sphere and a tilted cube.
 // Every surface has a second renderer with the additive rain material, as the source scene overlays its mesh.
 using System.Collections.Generic;
 using UnityEditor;
@@ -82,7 +82,7 @@ namespace GameTech.Posts
             var plinth = new MeshKit().Lathe(new[] { new Vector2(0, 0), new Vector2(0, 1.0f), new Vector2(0.10f, 1.0f), new Vector2(0.14f, 0.9f), new Vector2(0.14f, 0) }, 72).Build("Plinth");
             Prop("Plinth", plinth, stone, Vector3.zero, Quaternion.identity);
 
-            // ---- arch behind IA
+            // ---- arch behind the character
             var arch = new MeshKit();
             arch.Box(new Vector3(-1.45f, 1.5f, -2.3f), new Vector3(0.5f, 3.0f, 0.5f));
             arch.Box(new Vector3(1.45f, 1.5f, -2.3f), new Vector3(0.5f, 3.0f, 0.5f));
@@ -100,10 +100,10 @@ namespace GameTech.Posts
             for (int i = 0; i < 3; i++) steps.Box(new Vector3(0, 0.09f + i * 0.18f, -3.4f - i * 0.45f), new Vector3(6.5f - i * 0.5f, 0.18f, 0.45f));
             Prop("Steps", steps.Build("Steps"), stone, Vector3.zero, Quaternion.identity);
 
-            // ---- IA, normal standing pose on the plinth
-            var ia = IAKit.Spawn(Base, Dir, (m, n) => { m.SetFloat("_Smoothness", 0.2f); });
-            ia.transform.position = new Vector3(0, 0.14f, 0);
-            AddRain(ia);
+            // ---- character, normal standing pose on the plinth
+            var chr = CharacterKit.Spawn(Base, Dir, (m, n) => { m.SetFloat("_Smoothness", 0.2f); });
+            chr.transform.position = new Vector3(0, 0.14f, 0);
+            AddRain(chr);
 
             // ---- screen-space version: one full-viewport quad, only the right camera of the split sees its layer
             var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);

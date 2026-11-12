@@ -1,4 +1,4 @@
-// 69 dynamic footprints: IA walks over four ground strips (snow, mud, dry sand, snow) that deform from the foot force.
+// 69 dynamic footprints: the character walks over four ground strips (snow, mud, dry sand, snow) that deform from the foot force.
 // Two identical worlds 80 m apart: x = 0 deforms (ON), x = 80 is rigid (OFF) for the split screen.
 using System.Collections.Generic;
 using UnityEditor;
@@ -56,12 +56,12 @@ namespace GameTech.Posts
                 new Zone { name = "snow", nz = 502, E = 200000, tau = 0.2f, nu = 0.1f, filt = 0, bump = true, mat = snow },
             };
 
-            var ia = IAKit.Spawn(Lit, Dir, (m, name) =>
+            var chr = CharacterKit.Spawn(Lit, Dir, (m, name) =>
             {
                 m.SetFloat("_Smoothness", 0.15f); m.SetFloat("_Cull", 0f);
                 if (name == "face_alpha" || name == "Halo") { m.SetFloat("_AlphaClip", 1f); m.EnableKeyword("_ALPHATEST_ON"); m.SetFloat("_Cutoff", 0.5f); m.renderQueue = 2450; }
             });
-            var iaOff = Object.Instantiate(ia);
+            var chrOff = Object.Instantiate(chr);
             var walkers = new FootWalker[2];
             for (int wi = 0; wi < 2; wi++)
             {
@@ -84,7 +84,7 @@ namespace GameTech.Posts
                     z = z1;
                 }
                 Flat("Before", snow, wx - 30f, wx + 30f, -40f, LaneZ0); Flat("After", snow, wx - 30f, wx + 30f, z, 60f);
-                var who = on ? ia : iaOff; who.name = on ? "IA ON" : "IA OFF"; who.transform.position = new Vector3(wx, 0, 0);
+                var who = on ? chr : chrOff; who.name = on ? "Walker ON" : "Walker OFF"; who.transform.position = new Vector3(wx, 0, 0);
                 var fw = who.AddComponent<FootWalker>(); fw.grounds = list.ToArray(); fw.deform = on; walkers[wi] = fw;
             }
 
