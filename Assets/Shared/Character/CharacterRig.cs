@@ -1,7 +1,7 @@
 // Poses the scene character: arms down from the bind pose plus a small idle motion.
 // Bones are found by Unity Humanoid mapping when the model has a human Avatar, otherwise by transform name
 // (the stand-in mannequin uses the names below). All rotations are world-space deltas on top of the bind pose,
-// so bone-local axes do not matter. armDown assumes a T-pose bind pose; lower it for an A-pose model.
+// so bone-local axes do not matter. armDown is measured from the bind pose (T-pose or A-pose) unless autoArmDown is off.
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +10,7 @@ namespace GameTech
     public class CharacterRig : MonoBehaviour
     {
         public float armDown = 72f;
+        public bool autoArmDown = true;   // set armDown from the bind pose so the arms end about 18 degrees out from vertical
         public bool idle = true;
         readonly Dictionary<string, Transform> bones = new Dictionary<string, Transform>();
         readonly Dictionary<Transform, Quaternion> bind = new Dictionary<Transform, Quaternion>();
@@ -36,6 +37,9 @@ namespace GameTech
             var anim = GetComponentInChildren<Animator>();
             if (anim != null && anim.isHuman)
                 foreach (var kv in Human) { var b = anim.GetBoneTransform(kv.Value); if (b != null) bones[kv.Key] = b; }
+            var up = Bone("Upperarm_L"); var low = Bone("Lowerarm_L");
+            if (autoArmDown && up != null && low != null)
+                armDown = Vector3.Angle(low.position - up.position, -transform.up) - 18f;   // T-pose: 72, A-pose 8 degrees out: -10
         }
 
         public void ResetPose() { foreach (var kv in bind) kv.Key.localRotation = kv.Value; }

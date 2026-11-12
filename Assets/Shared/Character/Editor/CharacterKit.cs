@@ -17,8 +17,33 @@ namespace GameTech
             if (!AssetDatabase.IsValidFolder(ModelDir)) return null;
             foreach (var guid in AssetDatabase.FindAssets("t:GameObject", new[] { ModelDir }))
             {
-                var go = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid));
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                // a model file is imported with a Humanoid avatar, so CharacterRig can find bones by Humanoid mapping
+                if (AssetImporter.GetAtPath(path) is ModelImporter imp && imp.animationType != ModelImporterAnimationType.Human)
+                {
+                    imp.animationType = ModelImporterAnimationType.Human;
+                    imp.avatarSetup = ModelImporterAvatarSetup.CreateFromThisModel;
+                    imp.SaveAndReimport();
+                    Debug.Log("[gt] character model set to Humanoid: " + path);
+                }
+                var go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
                 if (go != null) return go;
+            }
+            return null;
+        }
+
+        // texture for a source material: its own _BaseMap / mainTexture, else a texture in the Model folder whose name
+        // contains the material name without "_Mat" (Body_Mat -> *body*.png)
+        static Texture TextureFor(Material src, string name)
+        {
+            Texture tex = null;
+            if (src != null) tex = src.HasProperty("_BaseMap") ? src.GetTexture("_BaseMap") : src.mainTexture;
+            if (tex != null) return tex;
+            string key = name.ToLowerInvariant().Replace("_mat", "").Replace(" ", "");
+            foreach (var guid in AssetDatabase.FindAssets("t:Texture2D", new[] { ModelDir }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                if (System.IO.Path.GetFileNameWithoutExtension(path).ToLowerInvariant().Contains(key)) return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
             }
             return null;
         }
@@ -46,10 +71,10 @@ namespace GameTech
                     if (!cache.TryGetValue(name, out var m))
                     {
                         m = new Material(Shader.Find(shader));
-                        Texture tex = null;
-                        if (src[i] != null) tex = src[i].HasProperty("_BaseMap") ? src[i].GetTexture("_BaseMap") : src[i].mainTexture;
+                        var tex = TextureFor(src[i], name);
                         if (tex != null) m.SetTexture("_BaseMap", tex);
                         m.SetColor("_BaseColor", Color.white);
+                        if (m.HasProperty("_Cull")) m.SetFloat("_Cull", 0f);   // double-sided: hair and clothes show their inner side
                         setup?.Invoke(m, name);
                         AssetDatabase.CreateAsset(m, matDir + "Char_" + name.Replace('.', '_').Replace('/', '_') + ".mat");
                         cache[name] = m;

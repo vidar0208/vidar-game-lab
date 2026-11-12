@@ -52,7 +52,7 @@ The builder name for each technique is in its README.
 Scenes marked in the Character column have a character in them. The character in the videos is not included in this repository.
 Without a model these scenes build a simple stand-in mannequin from code (`Assets/Shared/Character/Editor/Mannequin.cs`), so they build and render as they are.
 To use your own rigged character, put one FBX or prefab in `Assets/Shared/Character/Model/` (git ignores that folder).
-A Unity Humanoid rig works best; the scenes are framed for a character about 1.4 m tall, imported in T-pose.
+The model is switched to a Humanoid rig on first use. The scenes are framed for a character about 1.4 m tall; T-pose and A-pose both work.
 `Editor/CharacterKit.cs` loads it and gives every material the technique's shader, and `CharacterRig.cs` poses it.
 
 ## Layout
