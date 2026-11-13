@@ -25,6 +25,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Anisotropic Kuwahara filter](Assets/Techniques/anisotropic-kuwahara) | Painterly post-process: basic, generalized and anisotropic Kuwahara compared, with a structure tensor view. | |
 | [ASCII render](Assets/Techniques/ascii-render) | Post-process that turns every 8 x 8 pixel tile into a glyph, with difference-of-Gaussians edge glyphs and an optional colour tint. | |
 | [Halftone comic](Assets/Techniques/halftone-comic) | Post-process that prints the frame as CMYK dots on rotated grids, with plate offsets, a pitch and angle sweep and a zoomed brightness ramp. | |
+| [2D stable fluids](Assets/Techniques/stable-fluids-2d) | GPU stable fluids on a 256 x 256 grid with compute shaders: advection, implicit diffusion and Jacobi pressure projection around an obstacle. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

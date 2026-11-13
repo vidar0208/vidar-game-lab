@@ -1,0 +1,58 @@
+// Turns one of the solver's structured buffers into a texture for display (my own code, not from the source repo).
+// Mode 0: dye, 1 - exp(-dye * scale). Mode 1: velocity, hue = direction, brightness = speed * scale.
+// Mode 2: signed scalar (divergence or pressure), red positive, blue negative, full colour at |value| * scale = 1.
+// The obstacle mask is drawn on top in dark grey with a light outline.
+#pragma kernel View
+
+#include "FluidDynamicCommonUniforms.cginc"
+#include "FluidDynamicUtility.cginc"
+
+StructuredBuffer<float4> _view_source;
+RWTexture2D<float4>      _view_out;
+int                      _view_res;
+int                      _view_mode;
+float                    _view_scale;
+Texture2D<float4>        _view_obstacle;
+SamplerState             gt_point_clamp_sampler;
+
+float3 Hue(float h)
+{
+    float3 k = abs(frac(h + float3(0, 2.0 / 3.0, 1.0 / 3.0)) * 6 - 3) - 1;
+    return saturate(k);
+}
+
+[numthreads(16, 16, 1)]
+void View(uint3 id : SV_DispatchThreadID)
+{
+    if ((int)id.x >= _view_res || (int)id.y >= _view_res) return;
+    float2 uv    = (id.xy + 0.5) / _view_res;
+    float2 coord = uv * i_Resolution - 0.5;                    // cell centres sit on integer coordinates
+    float4 v     = StructuredBufferBilinearLoad(_view_source, coord);
+    float3 bg    = float3(0.006, 0.007, 0.010);
+    float3 c;
+    if (_view_mode == 0)
+    {
+        c = bg + (1 - exp(-max(v.rgb, 0) * _view_scale));
+    }
+    else if (_view_mode == 1)
+    {
+        float  m = length(v.xy);
+        float  h = atan2(v.y, v.x) / (2 * 3.14159265) + 0.5;
+        c = bg + Hue(h) * saturate(m * _view_scale);
+    }
+    else
+    {
+        float s = v.x * _view_scale;
+        c = s > 0 ? lerp(bg, float3(1.0, 0.30, 0.12), saturate(s)) : lerp(bg, float3(0.12, 0.45, 1.0), saturate(-s));
+    }
+
+    float texel = 1.0 / _view_res;
+    float ob    = _view_obstacle.SampleLevel(gt_point_clamp_sampler, uv, 0).r;
+    float obN   = max(max(_view_obstacle.SampleLevel(gt_point_clamp_sampler, uv + float2(2 * texel, 0), 0).r,
+                          _view_obstacle.SampleLevel(gt_point_clamp_sampler, uv - float2(2 * texel, 0), 0).r),
+                      max(_view_obstacle.SampleLevel(gt_point_clamp_sampler, uv + float2(0, 2 * texel), 0).r,
+                          _view_obstacle.SampleLevel(gt_point_clamp_sampler, uv - float2(0, 2 * texel), 0).r));
+    if (ob > 0.1) c = float3(0.035, 0.037, 0.045);
+    else if (obN > 0.1) c = float3(0.55, 0.56, 0.6);
+    _view_out[id.xy] = float4(c, 1);
+}
