@@ -10,7 +10,7 @@ namespace GameTech.Posts
     public class AsciiChain
     {
         public readonly int W, H;
-        // URP hands the effect linear colour; the source's own attenuation exponent at 1/2.2 brings tile luminance back to display brightness
+        // The effect reads linear colour; the source's own attenuation exponent at 1/2.2 brings tile luminance close to display brightness
         public static float Attenuation = 1f / 2.2f;
         readonly Material mat; readonly ComputeShader cs;
         readonly RenderTexture input, lum, ping, dog, sobel, d1, d2, d3;

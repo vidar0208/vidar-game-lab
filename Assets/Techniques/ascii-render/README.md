@@ -22,7 +22,7 @@ Colour: each glyph can be tinted by its tile colour.
 
 ## What I hit
 
-URP hands the effect linear colour, so midtones came out too dark and most tiles picked a blank glyph. The source has an attenuation exponent on the luminance; I set it to 1 / 2.2.
+The effect reads linear colour (the source project is set to linear too), so in my scene the midtones came out dark and most tiles picked a blank glyph. The source has an attenuation exponent on the luminance; I set it to 1 / 2.2, close to display brightness.
 
 Small bugs in the source, fixed and marked in the code: pixels with no edge vote into bucket -1; the dispatch used the width for both axes (240 x 240 groups for a 240 x 135 tile grid); the edge glyph rows were flipped and one row off; and a Sobel weight read 3 + lum instead of 3 x lum.
 
