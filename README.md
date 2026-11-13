@@ -22,6 +22,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Parallax mapping](Assets/Techniques/parallax-mapping) | A ray marches through a height map so flat quads show bricks, a hole and a valley. | |
 | [Texture painting](Assets/Techniques/texture-painting) | Ink stamped at the hit UV into each object's own RenderTexture, with normals and a drip pass. | |
 | [Ink painting](Assets/Techniques/ink-painting) | Chinese ink painting look: back-face outlines, triplanar texture strokes, wash and distance fade. | yes |
+| [Anisotropic Kuwahara filter](Assets/Techniques/anisotropic-kuwahara) | Painterly post-process: basic, generalized and anisotropic Kuwahara compared, with a structure tensor view. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
