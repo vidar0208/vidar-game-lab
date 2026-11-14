@@ -24,6 +24,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`pixel-art-dither`](Assets/Techniques/pixel-art-dither) | [Post-Processing](https://github.com/GarrettGunnell/Post-Processing) by Garrett Gunnell, commit `871a7ff`, Pixel Art folder | MIT | pixel-art filter, dither and palette swapper shaders copied with marked changes, script blit chains ported to URP. |
 | [`planar-reflections`](Assets/Techniques/planar-reflections) | [URP_PlanarReflections](https://github.com/draftPRD/URP_PlanarReflections) by William MacLeod, commit `2dd35ce`, planar reflection script | MIT | reflection matrix, camera-space clip plane, oblique projection and settings ported to plain C# (no Entities, Jobs or Burst), single level, mirror pass rendered by the scene camera. |
 | [`fft-convolution-bloom`](Assets/Techniques/fft-convolution-bloom) | [FFTConvolutionBloom](https://github.com/AKGWSB/FFTConvolutionBloom) by AKGWSB, commit `3be9c3c`, FFT compute shader, blit shaders and convolution bloom pass | MIT | compute shader and include copied unchanged, three blit shaders copied with marked changes, render pass ported to a script-driven chain; kernels are my own. |
+| [`anime-speed-lines`](Assets/Techniques/anime-speed-lines) | [Anime-Speed-Lines](https://github.com/MirzaBeig/Anime-Speed-Lines) by Mirza Beig (TheMirzaBeig), commit `7746364`, Anime Speed Lines shader | Unlicense | shader copied unchanged except its name; render pass re-done as one blit per band from a script. |
 
 ## Licence texts
 
@@ -487,6 +488,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+
+### MirzaBeig/Anime-Speed-Lines (anime-speed-lines)
+
+```
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org>
 ```
 
 ## Character model

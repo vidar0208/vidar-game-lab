@@ -29,6 +29,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Pixel-art dither](Assets/Techniques/pixel-art-dither) | Pixel-art post-process in URP: point-sampled or averaged downsampling, Bayer ordered dither with per-channel levels, and a palette lookup. | |
 | [Planar reflections](Assets/Techniques/planar-reflections) | Mirrored render of the scene into a texture with an oblique clip plane, read by a glossy floor at its screen position; single level, URP. | |
 | [FFT convolution bloom](Assets/Techniques/fft-convolution-bloom) | Bloom as a frequency-domain convolution: FFT of the bright pixels and of a kernel image, complex multiply, inverse FFT; any kernel shape at a fixed cost, URP. | |
+| [Anime speed lines](Assets/Techniques/anime-speed-lines) | Full-screen anime speed lines: scrolling simplex noise in polar coordinates, remapped to thin lines and kept out of a centre mask, URP. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
