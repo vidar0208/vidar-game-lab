@@ -27,6 +27,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Halftone comic](Assets/Techniques/halftone-comic) | Post-process that prints the frame as CMYK dots on rotated grids, with plate offsets, a pitch and angle sweep and a zoomed brightness ramp. | |
 | [2D stable fluids](Assets/Techniques/stable-fluids-2d) | GPU stable fluids on a 256 x 256 grid with compute shaders: advection, implicit diffusion and Jacobi pressure projection around an obstacle. | |
 | [Pixel-art dither](Assets/Techniques/pixel-art-dither) | Pixel-art post-process in URP: point-sampled or averaged downsampling, Bayer ordered dither with per-channel levels, and a palette lookup. | |
+| [Planar reflections](Assets/Techniques/planar-reflections) | Mirrored render of the scene into a texture with an oblique clip plane, read by a glossy floor at its screen position; single level, URP. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
