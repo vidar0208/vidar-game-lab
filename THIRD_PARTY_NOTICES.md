@@ -23,6 +23,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`stable-fluids-2d`](Assets/Techniques/stable-fluids-2d) | [Compute-Shaders-Fluid-Dynamic-](https://github.com/IRCSS/Compute-Shaders-Fluid-Dynamic-) by Shahriar Shahrabi, commit `03765e7`, solver compute shaders and simulation scripts | MIT | compute shaders copied unchanged, boundary lookup tables copied as data, simulation steps ported to URP. |
 | [`pixel-art-dither`](Assets/Techniques/pixel-art-dither) | [Post-Processing](https://github.com/GarrettGunnell/Post-Processing) by Garrett Gunnell, commit `871a7ff`, Pixel Art folder | MIT | pixel-art filter, dither and palette swapper shaders copied with marked changes, script blit chains ported to URP. |
 | [`planar-reflections`](Assets/Techniques/planar-reflections) | [URP_PlanarReflections](https://github.com/draftPRD/URP_PlanarReflections) by William MacLeod, commit `2dd35ce`, planar reflection script | MIT | reflection matrix, camera-space clip plane, oblique projection and settings ported to plain C# (no Entities, Jobs or Burst), single level, mirror pass rendered by the scene camera. |
+| [`fft-convolution-bloom`](Assets/Techniques/fft-convolution-bloom) | [FFTConvolutionBloom](https://github.com/AKGWSB/FFTConvolutionBloom) by AKGWSB, commit `3be9c3c`, FFT compute shader, blit shaders and convolution bloom pass | MIT | compute shader and include copied unchanged, three blit shaders copied with marked changes, render pass ported to a script-driven chain; kernels are my own. |
 
 ## Licence texts
 
@@ -442,6 +443,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2020 William MacLeod
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### AKGWSB/FFTConvolutionBloom (fft-convolution-bloom)
+
+```
+MIT License
+
+Copyright (c) [year] [fullname]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
