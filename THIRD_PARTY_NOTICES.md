@@ -26,6 +26,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`fft-convolution-bloom`](Assets/Techniques/fft-convolution-bloom) | [FFTConvolutionBloom](https://github.com/AKGWSB/FFTConvolutionBloom) by AKGWSB, commit `3be9c3c`, FFT compute shader, blit shaders and convolution bloom pass | MIT | compute shader and include copied unchanged, three blit shaders copied with marked changes, render pass ported to a script-driven chain; kernels are my own. |
 | [`anime-speed-lines`](Assets/Techniques/anime-speed-lines) | [Anime-Speed-Lines](https://github.com/MirzaBeig/Anime-Speed-Lines) by Mirza Beig (TheMirzaBeig), commit `7746364`, Anime Speed Lines shader | Unlicense | shader copied unchanged except its name; render pass re-done as one blit per band from a script. |
 | [`per-object-shadows`](Assets/Techniques/per-object-shadows) | [PerObjectShadowSRP](https://github.com/GavinKG/PerObjectShadowSRP) by Gavin_KG, commit `dc1b288`, per-object shadow core, settings and resolve shader | MIT | core and settings copied unchanged, resolve shader copied with its name changed, shadow and resolve passes ported to a script-driven command buffer. |
+| [`rim-light`](Assets/Techniques/rim-light) | [Rimlight](https://github.com/AdultLink/Rimlight) by Guillermo Angel, commit `9ddf81c`, rim light shader | MIT | rim, pulsate and noise logic rewritten in URP HLSL with the same formula; 3D simplex noise function copied unchanged. |
 
 ## Licence texts
 
@@ -526,6 +527,32 @@ For more information, please refer to <http://unlicense.org>
 MIT License
 
 Copyright (c) 2021 Gavin_KG
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### AdultLink/Rimlight (rim-light)
+
+```
+MIT License
+
+Copyright (c) 2018 Guillermo Angel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
