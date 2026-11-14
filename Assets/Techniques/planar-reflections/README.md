@@ -38,7 +38,7 @@ Reflection texture in HDR at the view size: 1920 x 1080 = 2073k pixels. Half: 96
 
 Floor: Schlick Fresnel with a base reflectance of 0.3, scaled by 0.85, over a dark lit base colour.
 
-Scene built from code: a back wall with light strips, pillars, pedestals, a rolling ball, a floating torus, a sliding slab and a glowing orb.
+Scene built from code: a back wall with coloured strips, pillars, pedestals, a rolling ball, a floating torus, a sliding slab and an orb with a point light.
 
 I did not measure frame times.
 
