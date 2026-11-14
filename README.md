@@ -30,6 +30,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Planar reflections](Assets/Techniques/planar-reflections) | Mirrored render of the scene into a texture with an oblique clip plane, read by a glossy floor at its screen position; single level, URP. | |
 | [FFT convolution bloom](Assets/Techniques/fft-convolution-bloom) | Bloom as a frequency-domain convolution: FFT of the bright pixels and of a kernel image, complex multiply, inverse FFT; any kernel shape at a fixed cost, URP. | |
 | [Anime speed lines](Assets/Techniques/anime-speed-lines) | Full-screen anime speed lines: scrolling simplex noise in polar coordinates, remapped to thin lines and kept out of a centre mask, URP. | |
+| [Per-object shadows](Assets/Techniques/per-object-shadows) | Per-object shadow atlas: each moving object gets its own light-space slice sized by screen coverage, resolved on screen with instanced boxes, next to URP cascades. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
