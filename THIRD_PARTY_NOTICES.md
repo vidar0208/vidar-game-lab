@@ -27,6 +27,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`anime-speed-lines`](Assets/Techniques/anime-speed-lines) | [Anime-Speed-Lines](https://github.com/MirzaBeig/Anime-Speed-Lines) by Mirza Beig (TheMirzaBeig), commit `7746364`, Anime Speed Lines shader | Unlicense | shader copied unchanged except its name; render pass re-done as one blit per band from a script. |
 | [`per-object-shadows`](Assets/Techniques/per-object-shadows) | [PerObjectShadowSRP](https://github.com/GavinKG/PerObjectShadowSRP) by Gavin_KG, commit `dc1b288`, per-object shadow core, settings and resolve shader | MIT | core and settings copied unchanged, resolve shader copied with its name changed, shadow and resolve passes ported to a script-driven command buffer. |
 | [`rim-light`](Assets/Techniques/rim-light) | [Rimlight](https://github.com/AdultLink/Rimlight) by Guillermo Angel, commit `9ddf81c`, rim light shader | MIT | rim, pulsate and noise logic rewritten in URP HLSL with the same formula; 3D simplex noise function copied unchanged. |
+| [`screen-space-cavity`](Assets/Techniques/screen-space-cavity) | [URP-ScreenSpaceCavity](https://github.com/malyawka/URP-ScreenSpaceCavity) by MalyaWka (Pavel Pustovalov), commit `ff60ac2`, curvature and cavity shader functions, cavity pass and settings | BSD-3-Clause | curvature and cavity functions copied with the depth and normal reads replaced; renderer feature ported to a script-driven command buffer; licence text also in the technique folder. |
 
 ## Licence texts
 
@@ -571,6 +572,40 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+
+### malyawka/URP-ScreenSpaceCavity (screen-space-cavity)
+
+```
+BSD 3-Clause License
+
+Copyright (c) 2021, MalyaWla (Pavel Pustovalov)
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
 ## Character model
