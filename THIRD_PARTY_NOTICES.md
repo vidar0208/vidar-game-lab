@@ -30,6 +30,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`screen-space-cavity`](Assets/Techniques/screen-space-cavity) | [URP-ScreenSpaceCavity](https://github.com/malyawka/URP-ScreenSpaceCavity) by MalyaWka (Pavel Pustovalov), commit `ff60ac2`, curvature and cavity shader functions, cavity pass and settings | BSD-3-Clause | curvature and cavity functions copied with the depth and normal reads replaced; renderer feature ported to a script-driven command buffer; licence text also in the technique folder. |
 | [`specular-probes`](Assets/Techniques/specular-probes) | [SpecularProbes](https://github.com/zulubo/SpecularProbes) by zulubo (Zach Tsiakalis-Brown), commit `aa43600`, SpecularProbeLight and SpecularProbeRenderer scripts | MIT | copied with a built-in sphere mesh, a bake-to-file helper and the Unity 6 object search call; licence text also in the technique folder. |
 | [`agx-tonemapping`](Assets/Techniques/agx-tonemapping) | [CustomToneMappingURP](https://github.com/aki-null/CustomToneMappingURP) by aki-null (Akihiro Noguchi), commit `2735f90`, used as a package | MIT | not copied: pinned as a package dependency in Packages/manifest.json and used unchanged; the package's own third-party notices apply to it. |
+| [`gpu-fog-particles`](Assets/Techniques/gpu-fog-particles) | [GPU-Fog-Particles](https://github.com/MirzaBeig/GPU-Fog-Particles) by Mirza Beig (TheMirzaBeig), commit `324e6ce`, GPU Fog (URP) shader | Unlicense | shader copied with three duplicate depth-texture declarations commented out for URP 17; particle settings re-created from code. |
 
 ## Licence texts
 
@@ -660,6 +661,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+
+### MirzaBeig/GPU-Fog-Particles (gpu-fog-particles)
+
+```
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
 ```
 
 ## Character model
