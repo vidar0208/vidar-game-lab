@@ -36,6 +36,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Specular probes](Assets/Techniques/specular-probes) | Baked lights show up as highlights in a baked reflection probe: bright spheres are drawn at each light while the probe bakes, then removed. | |
 | [AgX tone mapping](Assets/Techniques/agx-tonemapping) | AgX and ACES 2.0 tone mapping in URP through a renderer feature that rewrites URP's colour grading LUT, compared with URP's built-in ACES on the same HDR frame (SDR output). | |
 | [GPU fog particles](Assets/Techniques/gpu-fog-particles) | Textureless fog: camera-facing particle quads whose alpha comes from three noise layers (value, simplex, Voronoi) computed in the shader, with a scene-depth fade, URP. | |
+| [Casual PRT](Assets/Techniques/casual-prt) | Probe GI that follows a moving sun: each probe stores 512 surfels once, a compute shader relights them every frame and projects to L2 SH, pixels blend the 8 nearest probes, URP. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

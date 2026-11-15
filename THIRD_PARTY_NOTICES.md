@@ -31,6 +31,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`specular-probes`](Assets/Techniques/specular-probes) | [SpecularProbes](https://github.com/zulubo/SpecularProbes) by zulubo (Zach Tsiakalis-Brown), commit `aa43600`, SpecularProbeLight and SpecularProbeRenderer scripts | MIT | copied with a built-in sphere mesh, a bake-to-file helper and the Unity 6 object search call; licence text also in the technique folder. |
 | [`agx-tonemapping`](Assets/Techniques/agx-tonemapping) | [CustomToneMappingURP](https://github.com/aki-null/CustomToneMappingURP) by aki-null (Akihiro Noguchi), commit `2735f90`, used as a package | MIT | not copied: pinned as a package dependency in Packages/manifest.json and used unchanged; the package's own third-party notices apply to it. |
 | [`gpu-fog-particles`](Assets/Techniques/gpu-fog-particles) | [GPU-Fog-Particles](https://github.com/MirzaBeig/GPU-Fog-Particles) by Mirza Beig (TheMirzaBeig), commit `324e6ce`, GPU Fog (URP) shader | Unlicense | shader copied with three duplicate depth-texture declarations commented out for URP 17; particle settings re-created from code. |
+| [`casual-prt`](Assets/Techniques/casual-prt) | [CasualPRT](https://github.com/AKGWSB/CasualPRT) by AKGWSB, commit `ac5e321`, SH and G-buffer shaders, surfel relight compute shader | MIT | SH.hlsl and the two G-buffer shaders copied unchanged; relight compute shader takes the sun and per-surfel shadow from script parameters; capture, probe loop and composite rewritten for Unity 6; licence text also in the technique folder. |
 
 ## Licence texts
 
@@ -690,6 +691,32 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <https://unlicense.org>
+```
+
+### AKGWSB/CasualPRT (casual-prt)
+
+```
+MIT License
+
+Copyright (c) [year] [fullname]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
 
 ## Character model
