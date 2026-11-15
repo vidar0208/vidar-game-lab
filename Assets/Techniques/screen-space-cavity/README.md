@@ -28,7 +28,7 @@ The code divides the cavity sum by the sample count twice, so raising the sample
 
 At 1080p the default 1 px curvature step draws lines too thin to read in a video, so I used 2 px.
 
-It is not ambient occlusion: the reach is a few centimetres, it also brightens convex edges, and it scales direct sunlight too.
+It is not ambient occlusion: the reach is short (15 cm here), it also brightens convex edges, and it scales direct sunlight too.
 
 ## My build
 
