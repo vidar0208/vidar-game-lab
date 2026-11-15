@@ -2,7 +2,7 @@
 
 ![preview](preview.jpg)
 
-Move the sun and the red and green bounce light follows in the same frame. Nothing is baked: each probe stores what it sees, and only the lighting is redone every frame.
+Move the sun and the red and green bounce light follows in the same frame. No lightmaps: each probe stores what it sees once, and only the lighting is redone every frame.
 
 ## The problem
 
