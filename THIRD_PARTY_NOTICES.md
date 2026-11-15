@@ -29,6 +29,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`rim-light`](Assets/Techniques/rim-light) | [Rimlight](https://github.com/AdultLink/Rimlight) by Guillermo Angel, commit `9ddf81c`, rim light shader | MIT | rim, pulsate and noise logic rewritten in URP HLSL with the same formula; 3D simplex noise function copied unchanged. |
 | [`screen-space-cavity`](Assets/Techniques/screen-space-cavity) | [URP-ScreenSpaceCavity](https://github.com/malyawka/URP-ScreenSpaceCavity) by MalyaWka (Pavel Pustovalov), commit `ff60ac2`, curvature and cavity shader functions, cavity pass and settings | BSD-3-Clause | curvature and cavity functions copied with the depth and normal reads replaced; renderer feature ported to a script-driven command buffer; licence text also in the technique folder. |
 | [`specular-probes`](Assets/Techniques/specular-probes) | [SpecularProbes](https://github.com/zulubo/SpecularProbes) by zulubo (Zach Tsiakalis-Brown), commit `aa43600`, SpecularProbeLight and SpecularProbeRenderer scripts | MIT | copied with a built-in sphere mesh, a bake-to-file helper and the Unity 6 object search call; licence text also in the technique folder. |
+| [`agx-tonemapping`](Assets/Techniques/agx-tonemapping) | [CustomToneMappingURP](https://github.com/aki-null/CustomToneMappingURP) by aki-null (Akihiro Noguchi), commit `2735f90`, used as a package | MIT | not copied: pinned as a package dependency in Packages/manifest.json and used unchanged; the package's own third-party notices apply to it. |
 
 ## Licence texts
 
@@ -615,6 +616,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 MIT License
 
 Copyright (c) 2020 Zach Tsiakalis-Brown
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### aki-null/CustomToneMappingURP (agx-tonemapping)
+
+```
+MIT License
+
+Copyright (c) 2025 Akihiro Noguchi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

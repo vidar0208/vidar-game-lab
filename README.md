@@ -34,6 +34,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Rim light](Assets/Techniques/rim-light) | Fresnel rim light rewritten for URP: bias + scale x (1 - N dot V)^power as emission, with sine pulsing and world-space 3D simplex noise. | |
 | [Screen-space cavity](Assets/Techniques/screen-space-cavity) | Screen-space curvature and cavity from depth and normals, stored as a light multiplier: creases darkened, edges brightened, ported from a URP 10 renderer feature to a command buffer. | |
 | [Specular probes](Assets/Techniques/specular-probes) | Baked lights show up as highlights in a baked reflection probe: bright spheres are drawn at each light while the probe bakes, then removed. | |
+| [AgX tone mapping](Assets/Techniques/agx-tonemapping) | AgX and ACES 2.0 tone mapping in URP through a renderer feature that rewrites URP's colour grading LUT, compared with URP's built-in ACES on the same HDR frame (SDR output). | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
