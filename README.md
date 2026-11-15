@@ -33,6 +33,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Per-object shadows](Assets/Techniques/per-object-shadows) | Per-object shadow atlas: each moving object gets its own light-space slice sized by screen coverage, resolved on screen with instanced boxes, next to URP cascades. | |
 | [Rim light](Assets/Techniques/rim-light) | Fresnel rim light rewritten for URP: bias + scale x (1 - N dot V)^power as emission, with sine pulsing and world-space 3D simplex noise. | |
 | [Screen-space cavity](Assets/Techniques/screen-space-cavity) | Screen-space curvature and cavity from depth and normals, stored as a light multiplier: creases darkened, edges brightened, ported from a URP 10 renderer feature to a command buffer. | |
+| [Specular probes](Assets/Techniques/specular-probes) | Baked lights show up as highlights in a baked reflection probe: bright spheres are drawn at each light while the probe bakes, then removed. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
