@@ -40,6 +40,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Screen-space path tracing](Assets/Techniques/screen-space-path-tracing) | Multi-bounce path tracing through the depth buffer and G-buffer with real-time temporal or offline accumulation and a reflection probe fallback, URP deferred, one renderer per split-screen camera. | |
 | [Dithered transparency](Assets/Techniques/dithered-transparency) | Alpha as a screen-space keep-or-discard test (4x4 matrix or blue-noise texture) in the opaque pass, with depth write and a dithered shadow caster, compared with alpha blending. | |
 | [Motion Blur](Assets/Techniques/motion-blur) | Reconstruction-filter motion blur (velocity setup, tile max, neighbour max, depth-aware gather) plus frame blending, ported to a URP renderer feature that reads URP's motion vectors. | |
+| [Triplanar Normal Mapping](Assets/Techniques/triplanar-normals) | One normal map projected along X, Y and Z on meshes without UVs, with the naive, UDN, Whiteout, RNM and GPU Gems 3 blends in one URP lit shader and a CPU error test. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

@@ -35,6 +35,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`screen-space-path-tracing`](Assets/Techniques/screen-space-path-tracing) | [UnitySSPathTracingURP](https://github.com/jiaozi158/UnitySSPathTracingURP) by jiaozi158, commit `6bee8fc`, renderer feature, volume, shader, material and noise textures | MIT | Copied unchanged into the technique folder (SSPT/), licence text in SSPT/LICENSE.txt; scene, renderer setup and probe hand-off are new. |
 | [`dithered-transparency`](Assets/Techniques/dithered-transparency) | [unity-dithered-transparency-shader](https://github.com/gkjohnson/unity-dithered-transparency-shader) by gkjohnson, commit `238119a`, dither threshold functions and blue-noise texture | MIT | Threshold functions ported to HLSL for URP; blue-noise texture copied unchanged; licence text in LICENSE-dither.txt; lit shader, shadow caster, scene and comparison shader are new. |
 | [`motion-blur`](Assets/Techniques/motion-blur) | [KinoMotion](https://github.com/keijiro/KinoMotion) by keijiro, commit `35d5d51`, reconstruction filter and frame blending filter | MIT | Shader passes and frame blending ported to HLSL and a URP render graph pass; licence text in KinoMotion/LICENSE.txt; scene, per-camera history and comparisons are new. |
+| [`triplanar-normals`](Assets/Techniques/triplanar-normals) | [Normal-Mapping-for-a-Triplanar-Shader](https://github.com/bgolus/Normal-Mapping-for-a-Triplanar-Shader) by bgolus, commit `a3571bf`, triplanar projection and five normal blends | Unlicense | Projection, UV flip and blends ported to HLSL in one URP lit shader; licence text in LICENSE-triplanar.txt; normal map, meshes, lighting and test are new. |
 
 ## Licence texts
 
@@ -798,6 +799,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+
+### bgolus/Normal-Mapping-for-a-Triplanar-Shader (triplanar-normals)
+
+```
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
 ```
 
 ## Character model
