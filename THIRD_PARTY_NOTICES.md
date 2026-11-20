@@ -34,6 +34,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`casual-prt`](Assets/Techniques/casual-prt) | [CasualPRT](https://github.com/AKGWSB/CasualPRT) by AKGWSB, commit `ac5e321`, SH and G-buffer shaders, surfel relight compute shader | MIT | SH.hlsl and the two G-buffer shaders copied unchanged; relight compute shader takes the sun and per-surfel shadow from script parameters; capture, probe loop and composite rewritten for Unity 6; licence text also in the technique folder. |
 | [`screen-space-path-tracing`](Assets/Techniques/screen-space-path-tracing) | [UnitySSPathTracingURP](https://github.com/jiaozi158/UnitySSPathTracingURP) by jiaozi158, commit `6bee8fc`, renderer feature, volume, shader, material and noise textures | MIT | Copied unchanged into the technique folder (SSPT/), licence text in SSPT/LICENSE.txt; scene, renderer setup and probe hand-off are new. |
 | [`dithered-transparency`](Assets/Techniques/dithered-transparency) | [unity-dithered-transparency-shader](https://github.com/gkjohnson/unity-dithered-transparency-shader) by gkjohnson, commit `238119a`, dither threshold functions and blue-noise texture | MIT | Threshold functions ported to HLSL for URP; blue-noise texture copied unchanged; licence text in LICENSE-dither.txt; lit shader, shadow caster, scene and comparison shader are new. |
+| [`motion-blur`](Assets/Techniques/motion-blur) | [KinoMotion](https://github.com/keijiro/KinoMotion) by keijiro, commit `35d5d51`, reconstruction filter and frame blending filter | MIT | Shader passes and frame blending ported to HLSL and a URP render graph pass; licence text in KinoMotion/LICENSE.txt; scene, per-camera history and comparisons are new. |
 
 ## Licence texts
 
@@ -753,6 +754,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2017 Garrett Johnson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### keijiro/KinoMotion (motion-blur)
+
+```
+MIT License
+
+Copyright (c) 2016, 2017 Keijiro Takahashi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
