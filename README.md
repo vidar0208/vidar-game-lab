@@ -43,6 +43,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Triplanar Normal Mapping](Assets/Techniques/triplanar-normals) | One normal map projected along X, Y and Z on meshes without UVs, with the naive, UDN, Whiteout, RNM and GPU Gems 3 blends in one URP lit shader and a CPU error test. | |
 | [Volumetric Lights](Assets/Techniques/volumetric-lights) | Per-light ray-marched beams for sun, spot and point lights in URP: shadow-mapped scattering in each light's volume, half-res march, bilateral blur and upsample. | |
 | [GPU Trails](Assets/Techniques/gpu-trail) | 1,029 ribbon trails kept on the GPU in URP: compute shaders append nodes, build camera-facing strips, cull against the camera and pick a LOD per trail; indirect draws. | |
+| [Virtual Texture](Assets/Techniques/virtual-texture) | A 16,384 x 16,384 virtual texture in URP: feedback pass with async readback, a page table and a 64-tile LRU cache; pages drawn procedurally with their numbers. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
