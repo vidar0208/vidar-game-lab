@@ -45,6 +45,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [GPU Trails](Assets/Techniques/gpu-trail) | 1,029 ribbon trails kept on the GPU in URP: compute shaders append nodes, build camera-facing strips, cull against the camera and pick a LOD per trail; indirect draws. | |
 | [Virtual Texture](Assets/Techniques/virtual-texture) | A 16,384 x 16,384 virtual texture in URP: feedback pass with async readback, a page table and a 64-tile LRU cache; pages drawn procedurally with their numbers. | |
 | [CoR Skinning](Assets/Techniques/cor-skinning) | Center of rotation skinning in URP: per-vertex centres precomputed on the GPU in the editor, compute-shader skinning; linear blend vs CoR on a figure with blended arm weights. | |
+| [GPU 3D Smoke](Assets/Techniques/gpu-3d-smoke) | Grid smoke solver in compute shaders (128 cubed, Jacobi pressure, vorticity confinement) with a slab and a walking figure as moving obstacles; URP ray-marched volume. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

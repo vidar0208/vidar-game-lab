@@ -1,0 +1,71 @@
+
+#pragma kernel CSMain
+#define NUM_THREADS 8
+
+float4 _Size;
+
+RWStructuredBuffer<float> _Write;
+
+// GameTech change: besides the border, static boxes and moving capsules (world space), with obstacle velocity
+// in cells per unit of simulation time
+RWStructuredBuffer<float3> _WriteVelocity;
+float4 _DomainMin, _DomainSize;
+int _BoxCount, _CapCount;
+float4 _BoxLo[8], _BoxHi[8];
+float4 _CapA[24], _CapB[24], _CapVA[24], _CapVB[24];   // A.w = radius
+float _VelocityScale;
+
+[numthreads(NUM_THREADS,NUM_THREADS,NUM_THREADS)]
+void CSMain (int3 id : SV_DispatchThreadID)
+{
+
+    int idx = id.x + id.y*_Size.x + id.z*_Size.x*_Size.y;
+    
+    float obstacle = 0;
+    
+    if(id.x-1 < 0) obstacle = 1;
+    if(id.x+1 > (int)_Size.x-1) obstacle = 1;
+    
+    if(id.y-1 < 0) obstacle = 1;
+    if(id.y+1 > (int)_Size.y-1) obstacle = 1;
+    
+    if(id.z-1 < 0) obstacle = 1;
+    if(id.z+1 > (int)_Size.z-1) obstacle = 1;
+    
+    float3 vel = float3(0,0,0);
+    float3 p = _DomainMin.xyz + id / (_Size.xyz - 1.0) * _DomainSize.xyz;
+    for (int b = 0; b < _BoxCount; b++)
+        if (all(p >= _BoxLo[b].xyz) && all(p <= _BoxHi[b].xyz)) obstacle = 1;
+    for (int c = 0; c < _CapCount; c++)
+    {
+        float3 a = _CapA[c].xyz, ab = _CapB[c].xyz - a;
+        float h = saturate(dot(p - a, ab) / max(dot(ab, ab), 1e-8));
+        if (length(p - (a + h * ab)) < _CapA[c].w)
+        {
+            obstacle = 1;
+            vel = lerp(_CapVA[c].xyz, _CapVB[c].xyz, h) * _VelocityScale;
+        }
+    }
+    _Write[idx] = obstacle;
+    _WriteVelocity[idx] = vel;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

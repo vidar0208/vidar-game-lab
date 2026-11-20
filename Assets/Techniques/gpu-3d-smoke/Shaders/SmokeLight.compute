@@ -1,0 +1,27 @@
+// Mine (not in the source): copies the density into a 3D texture for rendering and adds a light term. Light comes
+// straight down: each column is walked from the top, and the transmittance is exp(-accumulated density), with
+// solid obstacles inside the domain also blocking it. The texture holds (density, light).
+#pragma kernel LightScan
+
+float4 _Size;
+float _LightAbsorb;
+StructuredBuffer<float> _Density, _Obstacles;
+RWTexture3D<float2> _Volume;
+
+[numthreads(8, 1, 8)]
+void LightScan(uint3 id : SV_DispatchThreadID)
+{
+    int X = (int)_Size.x, Y = (int)_Size.y, Z = (int)_Size.z;
+    if ((int)id.x >= X || (int)id.z >= Z) return;
+    float dy = 1.0 / (_Size.y - 1.0);
+    bool innerXZ = id.x > 0 && (int)id.x < X - 1 && id.z > 0 && (int)id.z < Z - 1;
+    float acc = 0;
+    for (int y = Y - 1; y >= 0; y--)
+    {
+        int idx = id.x + y * X + id.z * X * Y;
+        float d = _Density[idx];
+        _Volume[uint3(id.x, y, id.z)] = float2(d, exp(-acc));
+        bool solid = innerXZ && y > 0 && y < Y - 1 && _Obstacles[idx] > 0.1;
+        acc += (d * _LightAbsorb + (solid ? 60.0 : 0.0)) * dy;
+    }
+}
