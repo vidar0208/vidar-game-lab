@@ -36,6 +36,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`dithered-transparency`](Assets/Techniques/dithered-transparency) | [unity-dithered-transparency-shader](https://github.com/gkjohnson/unity-dithered-transparency-shader) by gkjohnson, commit `238119a`, dither threshold functions and blue-noise texture | MIT | Threshold functions ported to HLSL for URP; blue-noise texture copied unchanged; licence text in LICENSE-dither.txt; lit shader, shadow caster, scene and comparison shader are new. |
 | [`motion-blur`](Assets/Techniques/motion-blur) | [KinoMotion](https://github.com/keijiro/KinoMotion) by keijiro, commit `35d5d51`, reconstruction filter and frame blending filter | MIT | Shader passes and frame blending ported to HLSL and a URP render graph pass; licence text in KinoMotion/LICENSE.txt; scene, per-camera history and comparisons are new. |
 | [`triplanar-normals`](Assets/Techniques/triplanar-normals) | [Normal-Mapping-for-a-Triplanar-Shader](https://github.com/bgolus/Normal-Mapping-for-a-Triplanar-Shader) by bgolus, commit `a3571bf`, triplanar projection and five normal blends | Unlicense | Projection, UV flip and blends ported to HLSL in one URP lit shader; licence text in LICENSE-triplanar.txt; normal map, meshes, lighting and test are new. |
+| [`volumetric-lights`](Assets/Techniques/volumetric-lights) | [VolumetricLights](https://github.com/SlightlyMad/VolumetricLights) by SlightlyMad (Michal Skalsky), commit `d20b6f9`, per-light ray march, bilateral blur and upsample | BSD-3-Clause | Ray march, phase function, dither and blur/upsample ported to a URP renderer feature in HLSL; licence text in VolumetricLights/LICENSE.txt; falloff, light intervals, noise texture and scene are new. |
 
 ## Licence texts
 
@@ -828,6 +829,38 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <https://unlicense.org>
+```
+
+### SlightlyMad/VolumetricLights (volumetric-lights)
+
+```
+Copyright (c) 2016, Michal Skalsky
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of VolumetricLights nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
 ## Character model
