@@ -38,6 +38,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [GPU fog particles](Assets/Techniques/gpu-fog-particles) | Textureless fog: camera-facing particle quads whose alpha comes from three noise layers (value, simplex, Voronoi) computed in the shader, with a scene-depth fade, URP. | |
 | [Casual PRT](Assets/Techniques/casual-prt) | Probe GI that follows a moving sun: each probe stores 512 surfels once, a compute shader relights them every frame and projects to L2 SH, pixels blend the 8 nearest probes, URP. | |
 | [Screen-space path tracing](Assets/Techniques/screen-space-path-tracing) | Multi-bounce path tracing through the depth buffer and G-buffer with real-time temporal or offline accumulation and a reflection probe fallback, URP deferred, one renderer per split-screen camera. | |
+| [Dithered transparency](Assets/Techniques/dithered-transparency) | Alpha as a screen-space keep-or-discard test (4x4 matrix or blue-noise texture) in the opaque pass, with depth write and a dithered shadow caster, compared with alpha blending. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
