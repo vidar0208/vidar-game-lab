@@ -41,6 +41,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`virtual-texture`](Assets/Techniques/virtual-texture) | [VirtualTexture](https://github.com/jintiao/VirtualTexture) by jintiao, commit `18b8d29`, page table, tile cache, feedback reader and shader code | Apache-2.0 | Quadtree, payload and LRU scripts unchanged; page table, tiled texture, feedback reader and shader code ported to URP with changes marked in the code; feedback renderer and loader replaced; licence text in VirtualTexture/LICENSE.txt; page content, ground and debug shaders and scene are new. |
 | [`cor-skinning`](Assets/Techniques/cor-skinning) | [CoR-Skinning](https://github.com/Milk-Drinker01/CoR-Skinning) by Milk-Drinker01, commit `a25a9a0`, precompute scripts and compute shaders | MIT | Precompute scripts copied (small Metal changes in the kernels); runtime buffer setup and GPU skinning ported into one component; licence text in CoR/LICENSE.txt; URP shader, figure and scene are new. |
 | [`gpu-3d-smoke`](Assets/Techniques/gpu-3d-smoke) | [GPU-GEMS-3D-Fluid-Simulation](https://github.com/Scrawk/GPU-GEMS-3D-Fluid-Simulation) by Scrawk, commit `6d676c6`, simulation compute shaders and smoke component | MIT | Nine compute shaders copied (obstacle velocity added in three, marked); smoke component ported with per-step obstacles, solver-off switch and 3D texture output; licence text in FluidSim3D/LICENSE.txt; URP ray-march shader, light pass, figure and scene are new. |
+| [`capsule-occlusion`](Assets/Techniques/capsule-occlusion) | [CapsuleOcclusion](https://github.com/Fewes/CapsuleOcclusion) by Fewes, commit `1c14432`, capsule component, occlusion functions and compute clustering | MIT | Source scripts and include files copied with marked changes (1D cluster buffer, compute lists without texture atomics); camera component rewritten for URP; licence text in CapsuleOcclusion/LICENSE.txt; lit shader, figure and scene are new. |
 
 ## Licence texts
 
@@ -1131,6 +1132,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2017 Justin Hawkins
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Fewes/CapsuleOcclusion (capsule-occlusion)
+
+```
+MIT License
+
+Copyright (c) 2024 Felix Westin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

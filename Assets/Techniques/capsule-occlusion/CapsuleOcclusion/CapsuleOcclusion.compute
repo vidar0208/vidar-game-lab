@@ -1,0 +1,51 @@
+// Capsule clustering, compute path (the source's "UpdateClusters" kernel).
+// GameTech changes: each thread owns one froxel, so its linked list is built in registers and written once to a
+// 1D buffer (count, pointer) instead of 3D integer textures with texture atomics (reset and merge kernels dropped);
+// the list never writes past the data buffer (the source notes this as a known failure).
+#pragma kernel UpdateClusters
+
+RWTexture3D<uint> _ClustersCount;    // declared for the shared include, not used here
+RWTexture3D<uint> _ClustersPointer;  // declared for the shared include, not used here
+RWStructuredBuffer<uint2> _ClusterData;
+RWStructuredBuffer<uint> _Counter;
+RWStructuredBuffer<uint2> _ClustersOut;
+int _MaxData;
+
+#include "CapsuleOcclusionBuildClusters.hlsl"
+
+[numthreads(8, 8, 8)]
+void UpdateClusters(uint3 id : SV_DispatchThreadID)
+{
+	if (any(id >= (uint3)_ClusterSize))
+	{
+		return;
+	}
+
+	// Capsule representing this froxel
+	float3 froxelPoint1 = ClusterPosToWorld(id.xyz + float3(0.5, 0.5, 0.0));
+	float3 froxelPoint2 = ClusterPosToWorld(id.xyz + float3(0.5, 0.5, 1.0));
+	float3 position_RU = ClusterPosToWorld(id.xyz + float3(1.0, 1.0, 1.0));
+	float froxelRadius = length(position_RU - froxelPoint2);
+
+	uint count = 0;
+	uint pointer = UINT_MAX;
+	for (int i = 0; i < _CapsuleCount; i++)
+	{
+		float4 param1 = _CapsuleParams1[i];
+		float4 param2 = _CapsuleParams2[i];
+		float d = LineSegmentDistSq(froxelPoint1, froxelPoint2, param1.xyz, param2.xyz);
+		float rs = param1.w + param2.w + froxelRadius;
+		if (d < rs*rs)
+		{
+			uint dataIndex;
+			InterlockedAdd(_Counter[0], 1, dataIndex);
+			if (dataIndex < (uint)_MaxData)
+			{
+				_ClusterData[dataIndex] = uint2(i, pointer);
+				pointer = dataIndex;
+				count++;
+			}
+		}
+	}
+	_ClustersOut[ClusterPosToIndex(id)] = uint2(count, pointer);
+}

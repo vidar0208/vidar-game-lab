@@ -46,6 +46,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Virtual Texture](Assets/Techniques/virtual-texture) | A 16,384 x 16,384 virtual texture in URP: feedback pass with async readback, a page table and a 64-tile LRU cache; pages drawn procedurally with their numbers. | |
 | [CoR Skinning](Assets/Techniques/cor-skinning) | Center of rotation skinning in URP: per-vertex centres precomputed on the GPU in the editor, compute-shader skinning; linear blend vs CoR on a figure with blended arm weights. | |
 | [GPU 3D Smoke](Assets/Techniques/gpu-3d-smoke) | Grid smoke solver in compute shaders (128 cubed, Jacobi pressure, vorticity confinement) with a slab and a walking figure as moving obstacles; URP ray-marched volume. | |
+| [Capsule Occlusion](Assets/Techniques/capsule-occlusion) | Analytic ambient occlusion from capsules on a character's bones, clustered per froxel with a compute shader; URP port with on/off, self-occlusion and debug views. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
