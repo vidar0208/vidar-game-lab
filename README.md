@@ -42,6 +42,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Motion Blur](Assets/Techniques/motion-blur) | Reconstruction-filter motion blur (velocity setup, tile max, neighbour max, depth-aware gather) plus frame blending, ported to a URP renderer feature that reads URP's motion vectors. | |
 | [Triplanar Normal Mapping](Assets/Techniques/triplanar-normals) | One normal map projected along X, Y and Z on meshes without UVs, with the naive, UDN, Whiteout, RNM and GPU Gems 3 blends in one URP lit shader and a CPU error test. | |
 | [Volumetric Lights](Assets/Techniques/volumetric-lights) | Per-light ray-marched beams for sun, spot and point lights in URP: shadow-mapped scattering in each light's volume, half-res march, bilateral blur and upsample. | |
+| [GPU Trails](Assets/Techniques/gpu-trail) | 1,029 ribbon trails kept on the GPU in URP: compute shaders append nodes, build camera-facing strips, cull against the camera and pick a LOD per trail; indirect draws. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

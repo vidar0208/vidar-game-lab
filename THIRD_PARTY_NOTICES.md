@@ -37,6 +37,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`motion-blur`](Assets/Techniques/motion-blur) | [KinoMotion](https://github.com/keijiro/KinoMotion) by keijiro, commit `35d5d51`, reconstruction filter and frame blending filter | MIT | Shader passes and frame blending ported to HLSL and a URP render graph pass; licence text in KinoMotion/LICENSE.txt; scene, per-camera history and comparisons are new. |
 | [`triplanar-normals`](Assets/Techniques/triplanar-normals) | [Normal-Mapping-for-a-Triplanar-Shader](https://github.com/bgolus/Normal-Mapping-for-a-Triplanar-Shader) by bgolus, commit `a3571bf`, triplanar projection and five normal blends | Unlicense | Projection, UV flip and blends ported to HLSL in one URP lit shader; licence text in LICENSE-triplanar.txt; normal map, meshes, lighting and test are new. |
 | [`volumetric-lights`](Assets/Techniques/volumetric-lights) | [VolumetricLights](https://github.com/SlightlyMad/VolumetricLights) by SlightlyMad (Michal Skalsky), commit `d20b6f9`, per-light ray march, bilateral blur and upsample | BSD-3-Clause | Ray march, phase function, dither and blur/upsample ported to a URP renderer feature in HLSL; licence text in VolumetricLights/LICENSE.txt; falloff, light intervals, noise texture and scene are new. |
+| [`gpu-trail`](Assets/Techniques/gpu-trail) | [GpuTrail](https://github.com/fuqunaga/GpuTrail) by fuqunaga, commit `057f559`, runtime scripts and compute shaders | MIT | Package code copied into GpuTrail/ with small Metal fixes and per-layer drawing (marked GameTech change); licence text in GpuTrail/LICENSE.txt; input feeder, URP trail shader and scene are new. |
 
 ## Licence texts
 
@@ -861,6 +862,32 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+```
+
+### fuqunaga/GpuTrail (gpu-trail)
+
+```
+MIT License
+
+Copyright (c) 2019 fuqunaga
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
 
 ## Character model

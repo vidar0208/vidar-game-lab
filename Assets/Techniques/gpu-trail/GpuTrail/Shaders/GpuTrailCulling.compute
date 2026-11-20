@@ -1,0 +1,47 @@
+#pragma kernel UpdateTrailIdxBuffer NUM_THREAD_X=32
+
+#include "GpuTrailCSInclude.hlsl"
+
+
+////////////////////////////////////////////////////////////////////////////////
+// UpdateTrailIdxBuffer
+////////////////////////////////////////////////////////////////////////////////
+float _TrailWidth;
+float3 _CameraPos;
+float4 _CameraFrustumNormals[3];   // GameTech change: x, y and z of the 4 side-plane normals (a float4x3 read wrong on Metal)
+StructuredBuffer<Node> _NodeBuffer;
+AppendStructuredBuffer<uint> _TrailIndexBufferAppend;
+
+[numthreads(NUM_THREAD_X,1,1)]
+void UpdateTrailIdxBuffer (uint3 id : SV_DispatchThreadID)
+{
+	uint trailIdx = id.x;
+	if ( trailIdx < _TrailNum )
+	{
+		uint nodeIdxStart = calcNodeIdx(trailIdx, 0);
+		uint nodeIdxEnd = nodeIdxStart + _NodeNumPerTrail;
+		for(uint nodeIdx = nodeIdxStart; nodeIdx < nodeIdxEnd; nodeIdx++)
+		{
+			Node node = _NodeBuffer[nodeIdx];
+			if ( node.time > 0)
+			{
+				// CheckCulling!
+				float3 posFromCamera = node.pos - _CameraPos;
+
+				if ( 
+					/*
+					(dot(_CameraFrustumNormals[0], posFromCamera) > -_TrailWidth) 
+					&& (dot(_CameraFrustumNormals[1], posFromCamera) > -_TrailWidth)
+					&& (dot(_CameraFrustumNormals[2], posFromCamera) > -_TrailWidth)
+					&& (dot(_CameraFrustumNormals[3], posFromCamera) > -_TrailWidth)
+					*/
+					all((_CameraFrustumNormals[0] * posFromCamera.x + _CameraFrustumNormals[1] * posFromCamera.y + _CameraFrustumNormals[2] * posFromCamera.z) > -_TrailWidth)
+				)
+				{
+					_TrailIndexBufferAppend.Append(trailIdx);
+					break;
+				}
+			}
+		}
+	}
+}
