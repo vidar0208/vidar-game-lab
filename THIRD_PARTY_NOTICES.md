@@ -46,6 +46,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`variance-shadow-maps`](Assets/Techniques/variance-shadow-maps) | [ShadowVSM](https://github.com/arigo/ShadowVSM) by Armin Rigo, commit `2b90f07`, blur shader, shadow component, depth pass and receiver function | MIT | Blur shader copied with marked changes (blur size as keywords); component, depth pass and receiver ported to URP (command-buffer caster pass, texture-array cascades); licence text in ShadowVSM/LICENSE.txt; lit shader, scene and director are new. |
 | [`sph-fluid-gpu`](Assets/Techniques/sph-fluid-gpu) | [Unity-Smoothed-Particle-Hydrodynamics](https://github.com/Gornhoth/Unity-Smoothed-Particle-Hydrodynamics) by Johannes Schatteiner, commit `2129e83`, SPH compute shader and particle manager | MIT | Compute shader copied with marked changes (own density term, pressure clamp, forces switch); manager ported (2 x radius cells, steps per frame, restart); licence text in SPH/LICENSE.txt; particle shader, tank scene and director are new. |
 | [`flip-fluid`](Assets/Techniques/flip-fluid) | [FLIP-Fluid-for-Unity](https://github.com/abecombe/FLIP-Fluid-for-Unity) by abecombe, commit `e9fc583`, FLIP simulation compute shaders, grid sort and GPU utility packages | Apache-2.0 | Compute shaders and packages copied with marked changes (relative include paths, optional static box obstacle); simulation driver ported without HDRP/VFX Graph rendering, UI and mouse force; licence text in FLIP/LICENSE.txt; particle shader, tank scene and director are new. |
+| [`per-light-baked-shadows`](Assets/Techniques/per-light-baked-shadows) | [DynamicLighting](https://github.com/Henry00IS/DynamicLighting) by Henry de Jongh, commit `e2a51ad`, per-light raytraced shadows package | MIT | Used as an unmodified package (not copied here; install from the git URL in the folder README); scene builder, rooms and director are new. |
 
 ## Licence texts
 
@@ -1464,6 +1465,32 @@ Apache License
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+```
+
+### Henry00IS/DynamicLighting (per-light-baked-shadows)
+
+```
+MIT License
+
+Copyright (c) 2022-2024 Henry de Jongh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
 
 ## Character model
