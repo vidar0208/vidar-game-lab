@@ -48,6 +48,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [GPU 3D Smoke](Assets/Techniques/gpu-3d-smoke) | Grid smoke solver in compute shaders (128 cubed, Jacobi pressure, vorticity confinement) with a slab and a walking figure as moving obstacles; URP ray-marched volume. | |
 | [Capsule Occlusion](Assets/Techniques/capsule-occlusion) | Analytic ambient occlusion from capsules on a character's bones, clustered per froxel with a compute shader; URP port with on/off, self-occlusion and debug views. | |
 | [2D Interactive Water](Assets/Techniques/interactive-water-2d) | Side-view interactive water: a 1D wave equation solved in a compute shader, bodies crossing the surface push it, screen-space reflection and refraction; URP port with solver on/off and reflection on/off views. | |
+| [Variance Shadow Maps](Assets/Techniques/variance-shadow-maps) | Variance shadow maps: depth and depth squared rendered from the sun, blurred in two passes, Chebyshev bound per pixel, six cascades; URP port with plain depth compare and blur-size comparisons. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
