@@ -50,6 +50,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [2D Interactive Water](Assets/Techniques/interactive-water-2d) | Side-view interactive water: a 1D wave equation solved in a compute shader, bodies crossing the surface push it, screen-space reflection and refraction; URP port with solver on/off and reflection on/off views. | |
 | [Variance Shadow Maps](Assets/Techniques/variance-shadow-maps) | Variance shadow maps: depth and depth squared rendered from the sun, blurred in two passes, Chebyshev bound per pixel, six cascades; URP port with plain depth compare and blur-size comparisons. | |
 | [SPH Fluid on the GPU](Assets/Techniques/sph-fluid-gpu) | Particle SPH liquid in a compute shader: uniform-grid neighbour search, density, pressure and viscosity forces, with a forces-off switch and a viscosity comparison. | |
+| [FLIP Fluid: PIC vs FLIP](Assets/Techniques/flip-fluid) | Particle-grid liquid in compute shaders: particle to grid, pressure and density projection, grid back to particles with a flipness blend; PIC vs FLIP and coarse vs fine grid side by side. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

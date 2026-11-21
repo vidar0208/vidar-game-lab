@@ -1,0 +1,32 @@
+﻿#pragma kernel InitParticle
+
+#pragma multi_compile _ IS_CUBE_AREA_SIMULATION IS_SPHERE_AREA_SIMULATION
+
+#include "../Common.hlsl"
+
+int3 _ParticleInitGridMin;
+int3 _ParticleInitGridMax;
+int3 _ParticleInitGridSize;
+
+RWStructuredBuffer<Particle> _ParticleBufferWrite;
+
+[numthreads(128, 1, 1)]
+void InitParticle(uint3 thread_id : SV_DispatchThreadID)
+{
+    RETURN_IF_INVALID(thread_id);
+
+    const uint p_id = thread_id.x;
+
+    Particle p = (Particle)0;
+
+    p.id = p_id;
+
+    const int x = p_id % (_ParticleInitGridSize.x * 2);
+    const int y = p_id / (_ParticleInitGridSize.x * 2) % (_ParticleInitGridSize.y * 2);
+    const int z = p_id / ((_ParticleInitGridSize.x * 2) * (_ParticleInitGridSize.y * 2));
+    p.position = GridPosToWorldPos(_ParticleInitGridMin + 0.25f + float3(x, y, z) * 0.5f);
+    ClampPosition(p.position, _GridMin, _GridMax);
+    ClampPositionByObstacles(p.position);
+
+    _ParticleBufferWrite[p_id] = p;
+}
