@@ -44,6 +44,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`capsule-occlusion`](Assets/Techniques/capsule-occlusion) | [CapsuleOcclusion](https://github.com/Fewes/CapsuleOcclusion) by Fewes, commit `1c14432`, capsule component, occlusion functions and compute clustering | MIT | Source scripts and include files copied with marked changes (1D cluster buffer, compute lists without texture atomics); camera component rewritten for URP; licence text in CapsuleOcclusion/LICENSE.txt; lit shader, figure and scene are new. |
 | [`interactive-water-2d`](Assets/Techniques/interactive-water-2d) | [WaterRW](https://github.com/ruccho/WaterRW) by ruccho, commit `688757f`, wave compute shader, water component and interaction interface | MIT | Compute shader and interface copied unchanged; water component copied with marked changes (Unity 6 velocity name, solve switch, read-only stats); water shader ported to URP (opaque texture instead of the 2D renderer's screen texture); licence text in WaterRW/LICENSE.txt; buoyancy, scene and director are new. |
 | [`variance-shadow-maps`](Assets/Techniques/variance-shadow-maps) | [ShadowVSM](https://github.com/arigo/ShadowVSM) by Armin Rigo, commit `2b90f07`, blur shader, shadow component, depth pass and receiver function | MIT | Blur shader copied with marked changes (blur size as keywords); component, depth pass and receiver ported to URP (command-buffer caster pass, texture-array cascades); licence text in ShadowVSM/LICENSE.txt; lit shader, scene and director are new. |
+| [`sph-fluid-gpu`](Assets/Techniques/sph-fluid-gpu) | [Unity-Smoothed-Particle-Hydrodynamics](https://github.com/Gornhoth/Unity-Smoothed-Particle-Hydrodynamics) by Johannes Schatteiner, commit `2129e83`, SPH compute shader and particle manager | MIT | Compute shader copied with marked changes (own density term, pressure clamp, forces switch); manager ported (2 x radius cells, steps per frame, restart); licence text in SPH/LICENSE.txt; particle shader, tank scene and director are new. |
 
 ## Licence texts
 
@@ -1212,6 +1213,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2022 Armin Rigo
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Gornhoth/Unity-Smoothed-Particle-Hydrodynamics (sph-fluid-gpu)
+
+```
+MIT License
+
+Copyright (c) 2021 Johannes Schatteiner
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
