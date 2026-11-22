@@ -53,6 +53,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [FLIP Fluid: PIC vs FLIP](Assets/Techniques/flip-fluid) | Particle-grid liquid in compute shaders: particle to grid, pressure and density projection, grid back to particles with a flipness blend; PIC vs FLIP and coarse vs fine grid side by side. | |
 | [Per-Light Baked Shadows, Live Light Changes](Assets/Techniques/per-light-baked-shadows) | Fixed lights whose shadows are raytraced once per light into a visibility bit per texel; colour, pulse and flicker change at runtime. Real-time unshadowed vs precomputed, steady vs live, side by side. | |
 | [Strand Hair Simulation: Rigid vs Simulated](Assets/Techniques/strand-hair-sim) | 30,000 GPU-simulated hair strands on a scanned head: length, local shape and root rotation constraints, sphere and capsule collision, Kajiya-Kay style strand shading. Hair locked to the head vs simulated, side by side. | |
+| [Subsurface Scattering and Transmission](Assets/Techniques/sss-transmission) | Back-lit wax, jade and a leaf: wrapped diffuse tinted by a subsurface colour plus a view-dependent transmission term scaled by thickness, in a small URP shader. Both off vs both on, wrap only vs wrap + transmission, and a thickness sweep. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

@@ -48,6 +48,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`flip-fluid`](Assets/Techniques/flip-fluid) | [FLIP-Fluid-for-Unity](https://github.com/abecombe/FLIP-Fluid-for-Unity) by abecombe, commit `e9fc583`, FLIP simulation compute shaders, grid sort and GPU utility packages | Apache-2.0 | Compute shaders and packages copied with marked changes (relative include paths, optional static box obstacle); simulation driver ported without HDRP/VFX Graph rendering, UI and mouse force; licence text in FLIP/LICENSE.txt; particle shader, tank scene and director are new. |
 | [`per-light-baked-shadows`](Assets/Techniques/per-light-baked-shadows) | [DynamicLighting](https://github.com/Henry00IS/DynamicLighting) by Henry de Jongh, commit `e2a51ad`, per-light raytraced shadows package | MIT | Used as an unmodified package (not copied here; install from the git URL in the folder README); scene builder, rooms and director are new. |
 | [`strand-hair-sim`](Assets/Techniques/strand-hair-sim) | [com.unity.demoteam.hair](https://github.com/Unity-Technologies/com.unity.demoteam.hair) by Unity Technologies, commit `75a7f44`, strand hair solver and renderer package; head scan "Infinite, 3D Head Scan" by Lee Perry-Smith (via the three.js examples) | Unity Companion License (package); CC BY 3.0 (head scan) | Package used unmodified (not copied here; install from the git URL in the folder README). Head scan converted to OBJ and scaled, scalp cap added, textures unmodified, licence text in Head/LeePerrySmith_License.txt. Groom generator, strand shader, scene and director are new. |
+| [`sss-transmission`](Assets/Techniques/sss-transmission) | [kShading](https://github.com/Kink3d/kShading) by Matt Dean, commit `cc62b3b`, subsurface wrap lighting and transmission terms from Lighting.hlsl | MIT | Terms re-implemented in a new Unity 6.3 URP shader (wrap kept per channel, two-sided normals); BRDF, GI and light loop from the current URP library; scene, meshes and director are new. |
 
 ## Licence texts
 
@@ -1504,6 +1505,32 @@ Licensed under the Unity Companion License for Unity-dependent projects--see [Un
 Unless expressly provided otherwise, the Software under this license is made available strictly on an “AS IS” BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. Please review the license for details on these and other terms and conditions.
 
 Full licence text: https://unity.com/legal/licenses/unity-companion-license
+```
+
+### Kink3d/kShading (sss-transmission)
+
+```
+MIT License
+
+Copyright (c) 2017 Matt Dean
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
 
 ## Character model
