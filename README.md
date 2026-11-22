@@ -57,6 +57,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Bitonic Pixel Sort on the GPU](Assets/Techniques/bitonic-pixel-sort) | Pixel sorting in a compute shader: each row (or column) is split into runs by a brightness threshold and every run is sorted with a bitonic sorting network in groupshared memory. | |
 | [Weighted Blended Order-Independent Transparency](Assets/Techniques/order-independent-transparency) | Weighted blended OIT in URP: glass is accumulated into a weighted colour target and a revealage target with order-independent blend states, then composited over the opaque scene in one pass, next to the default sorted transparent queue. | |
 | [Camera-Space Planar Shadow Map](Assets/Techniques/planar-shadow-map) | Shadows for a flat ground plane drawn in the main camera's screen space: casters are slid along the light onto the ground and projected with the main camera, so nearly every shadow-map texel lands on visible ground. Shown next to URP's cascaded shadows. | |
+| [Billboard Cards vs Blade Meshes](Assets/Techniques/grass-drawing-methods) | The same grass field drawn two ways with GPU instancing: 14,000 alpha-tested cards that face the camera plane vs 200,000 seven-triangle blade meshes, same lit shader, same sun and shadows. No geometry shader version (Metal does not support them). | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
