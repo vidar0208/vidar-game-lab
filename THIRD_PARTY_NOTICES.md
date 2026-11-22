@@ -47,6 +47,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`sph-fluid-gpu`](Assets/Techniques/sph-fluid-gpu) | [Unity-Smoothed-Particle-Hydrodynamics](https://github.com/Gornhoth/Unity-Smoothed-Particle-Hydrodynamics) by Johannes Schatteiner, commit `2129e83`, SPH compute shader and particle manager | MIT | Compute shader copied with marked changes (own density term, pressure clamp, forces switch); manager ported (2 x radius cells, steps per frame, restart); licence text in SPH/LICENSE.txt; particle shader, tank scene and director are new. |
 | [`flip-fluid`](Assets/Techniques/flip-fluid) | [FLIP-Fluid-for-Unity](https://github.com/abecombe/FLIP-Fluid-for-Unity) by abecombe, commit `e9fc583`, FLIP simulation compute shaders, grid sort and GPU utility packages | Apache-2.0 | Compute shaders and packages copied with marked changes (relative include paths, optional static box obstacle); simulation driver ported without HDRP/VFX Graph rendering, UI and mouse force; licence text in FLIP/LICENSE.txt; particle shader, tank scene and director are new. |
 | [`per-light-baked-shadows`](Assets/Techniques/per-light-baked-shadows) | [DynamicLighting](https://github.com/Henry00IS/DynamicLighting) by Henry de Jongh, commit `e2a51ad`, per-light raytraced shadows package | MIT | Used as an unmodified package (not copied here; install from the git URL in the folder README); scene builder, rooms and director are new. |
+| [`strand-hair-sim`](Assets/Techniques/strand-hair-sim) | [com.unity.demoteam.hair](https://github.com/Unity-Technologies/com.unity.demoteam.hair) by Unity Technologies, commit `75a7f44`, strand hair solver and renderer package; head scan "Infinite, 3D Head Scan" by Lee Perry-Smith (via the three.js examples) | Unity Companion License (package); CC BY 3.0 (head scan) | Package used unmodified (not copied here; install from the git URL in the folder README). Head scan converted to OBJ and scaled, scalp cap added, textures unmodified, licence text in Head/LeePerrySmith_License.txt. Groom generator, strand shader, scene and director are new. |
 
 ## Licence texts
 
@@ -1491,6 +1492,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+
+### Unity-Technologies/com.unity.demoteam.hair (strand-hair-sim)
+
+```
+com.unity.demoteam.hair copyright © 2020 Unity Technologies ApS
+
+Licensed under the Unity Companion License for Unity-dependent projects--see [Unity Companion License](http://www.unity3d.com/legal/licenses/Unity_Companion_License). 
+
+Unless expressly provided otherwise, the Software under this license is made available strictly on an “AS IS” BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. Please review the license for details on these and other terms and conditions.
+
+Full licence text: https://unity.com/legal/licenses/unity-companion-license
 ```
 
 ## Character model
