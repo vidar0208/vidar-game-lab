@@ -72,6 +72,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`mesh-deformers`](Assets/Techniques/mesh-deformers) | [Deform](https://github.com/keenanwoodall/Deform) by Keenan Woodall, commit `9e57dd3` | MIT | Deformer runtime included unchanged (folder Deform/) |
 | [`particle-life`](Assets/Techniques/particle-life) | [particle-life](https://github.com/hunar4321/particle-life) by Hunar Ahmad, commit `2562787` | MIT | Update rule, constants and seeded generator ported from particle_life.html to a compute shader |
 | [`mpm-elastic-fluid`](Assets/Techniques/mpm-elastic-fluid) | [incremental_mpm](https://github.com/nialltl/incremental_mpm) by nialltl, commit `2c46592` | MIT | MLS-MPM update, Neo-Hookean and fluid stress, ported to Burst jobs |
+| [`skinned-mesh-particles`](Assets/Techniques/skinned-mesh-particles) | [Smrvfx](https://github.com/keijiro/Smrvfx) by Keijiro Takahashi, commit `898ced9` | Unlicense | SkinnedMeshBaker included unchanged (without the VFX Graph binder); compute particles are new |
 
 ## Licence texts
 
@@ -2335,6 +2336,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+
+### Smrvfx (Unlicense) (skinned-mesh-particles)
+
+```
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
 ```
 
 ## Character model

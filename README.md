@@ -77,6 +77,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Mesh deformers as Burst jobs](Assets/Techniques/mesh-deformers) | Twist, bend, ripple and melt chained as Burst jobs on a 247,682-vertex mesh; normals on/off; Burst vs plain C# timing | |
 | [Particle life on the GPU](Assets/Techniques/particle-life) | Particle life ported to a compute shader: 8,192 particles, all pairs, symmetric vs asymmetric rule tables | |
 | [MLS-MPM: elastic vs fluid](Assets/Techniques/mpm-elastic-fluid) | 2D MLS-MPM on the CPU with Burst: the same particle-grid loop runs a Neo-Hookean elastic solid or a Newtonian fluid, only the stress function changes. | |
+| [Particles from a skinned mesh](Assets/Techniques/skinned-mesh-particles) | Smrvfx's skinned mesh baker writes position, normal and velocity textures every frame; a compute particle system spawns from them with inherited surface velocity. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
