@@ -66,6 +66,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Bent Normal and AO Baking](Assets/Techniques/bent-normal-ao) | AO and bent normals baked into one atlas at start from 1024 depth views; reflections occluded along the bent normal, compared with plain AO multiplication. | |
 | [Hydraulic Erosion](Assets/Techniques/hydraulic-erosion) | 131,072 raindrop particles erode a 256 x 256 noise height map on the GPU; compared with the raw noise, brush radius 1 vs 3, and a height change view. | |
 | [Ray-Marched Mandelbulb](Assets/Techniques/mandelbulb-raymarch) | Mandelbulb ray-marched in one compute shader with a distance-scaled hit threshold, soft shadows and distance AO; 3 vs 15 iterations on a 100x zoom, power morph, source vs added shading. | |
+| [Physarum Transport Network](Assets/Techniques/physarum-network) | 8.4 million slime mold agents on the GPU with three trail sensors each; sensing off vs on, sensor angle 22.5 vs 60 degrees, 1 vs 3 species. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

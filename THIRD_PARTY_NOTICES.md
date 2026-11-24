@@ -61,6 +61,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`bent-normal-ao`](Assets/Techniques/bent-normal-ao) | [BNAO](https://github.com/Fewes/BNAO) by Felix Westin, commit `bb5dc55` | MIT | per-texel visibility bake from depth views, bent normal and reflection occlusion, ported to Unity 6.3 URP with a compute pass |
 | [`hydraulic-erosion`](Assets/Techniques/hydraulic-erosion) | [Hydraulic-Erosion](https://github.com/SebLague/Hydraulic-Erosion) by Sebastian Lague, commit `f245576` | MIT | Droplet erosion compute kernel ported, run on a noise height map with a split-screen comparison |
 | [`mandelbulb-raymarch`](Assets/Techniques/mandelbulb-raymarch) | [Ray-Marching](https://github.com/SebLague/Ray-Marching) by Sebastian Lague, commit `f7e44c1` | MIT | Mandelbulb distance estimate, march loop and source shading ported from Fractal.compute; lighting and zoom added |
+| [`physarum-network`](Assets/Techniques/physarum-network) | [physarum](https://github.com/fogleman/physarum) by Michael Fogleman, commit `704dda7` | MIT | Agent update, deposit, blur/decay and species attraction ported from Go to compute shaders |
 
 ## Licence texts
 
@@ -1837,6 +1838,30 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2019 Sebastian Lague
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### physarum (physarum-network)
+
+```
+Copyright (C) 2020 Michael Fogleman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
