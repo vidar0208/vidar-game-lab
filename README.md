@@ -72,6 +72,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Reaction-Diffusion](Assets/Techniques/reaction-diffusion) | Gray-Scott reaction-diffusion in a compute shader with lit two-material display, diffusion-only comparison and three feed/kill pairs | |
 | [N-Body Galaxy Collision](Assets/Techniques/nbody-galaxy) | Tiled all-pairs N-body gravity in a compute shader: two galaxies colliding, centre-only vs full N-body, two softening values | |
 | [RVO Crowd Avoidance](Assets/Techniques/rvo-crowd-avoidance) | 250 walkers crossing a circle with the RVO2 (ORCA) library: seek + push-apart baseline vs RVO2, short vs long time horizon, overlap and arrival counters | |
+| [Procedural Planet](Assets/Techniques/procedural-planet) | Moon heights from ridge noise and crater curves in a compute shader on a welded cube sphere: noise only vs noise + 500 craters, two crater presets, low sun on the terminator | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

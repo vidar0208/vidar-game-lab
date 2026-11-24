@@ -1,0 +1,113 @@
+// Height of every vertex of a unit sphere: ridge noise + craters.
+// Ported from Sebastian Lague's Solar-System (MIT): MoonHeight.compute, Craters.cginc, FractalNoise.cginc
+// (ridgidNoise, smoothedRidgidNoise, simpleNoise) and Math.cginc (smoothMin, smoothMax). The math is unchanged;
+// the only change is that shape, ridge and crater terms can be switched off for the comparisons.
+#pragma kernel CSMain
+#include "Includes/SimplexNoise.cginc"
+
+StructuredBuffer<float3> vertices;
+RWStructuredBuffer<float> heights;
+uint numVertices;
+
+struct Crater { float3 centre; float radius; float floor; float smoothness; };
+StructuredBuffer<Crater> craters;
+int numCraters;
+float rimSteepness;
+float rimWidth;
+
+float4 noiseParams_shape[3];
+float4 noiseParams_ridge[3];
+float4 noiseParams_ridge2[3];
+
+// Math.cginc
+float smoothMin(float a, float b, float k)
+{
+    k = max(0, k);
+    float h = max(0, min(1, (b - a + k) / (2 * k)));
+    return a * h + b * (1 - h) - k * h * (1 - h);
+}
+float smoothMax(float a, float b, float k)
+{
+    k = min(0, -k);
+    float h = max(0, min(1, (b - a + k) / (2 * k)));
+    return a * h + b * (1 - h) - k * h * (1 - h);
+}
+
+// FractalNoise.cginc
+float simpleNoise(float3 pos, float4 params[3])
+{
+    float3 offset = params[0].xyz; int numLayers = int(params[0].w);
+    float persistence = params[1].x, lacunarity = params[1].y, scale = params[1].z, multiplier = params[1].w;
+    float verticalShift = params[2].x;
+    float noiseSum = 0, amplitude = 1, frequency = scale;
+    for (int i = 0; i < numLayers; i++)
+    {
+        noiseSum += snoise(pos * frequency + offset) * amplitude;
+        amplitude *= persistence; frequency *= lacunarity;
+    }
+    return noiseSum * multiplier + verticalShift;
+}
+
+float ridgidNoise(float3 pos, float4 params[3])
+{
+    float3 offset = params[0].xyz; int numLayers = int(params[0].w);
+    float persistence = params[1].x, lacunarity = params[1].y, scale = params[1].z, multiplier = params[1].w;
+    float power = params[2].x, gain = params[2].y, verticalShift = params[2].z;
+    float noiseSum = 0, amplitude = 1, frequency = scale, ridgeWeight = 1;
+    for (int i = 0; i < numLayers; i++)
+    {
+        float noiseVal = 1 - abs(snoise(pos * frequency + offset));
+        noiseVal = pow(abs(noiseVal), power);
+        noiseVal *= ridgeWeight;
+        ridgeWeight = saturate(noiseVal * gain);
+        noiseSum += noiseVal * amplitude;
+        amplitude *= persistence; frequency *= lacunarity;
+    }
+    return noiseSum * multiplier + verticalShift;
+}
+
+// Average of 5 samples at small offsets, which softens the sharp ridge peaks.
+float smoothedRidgidNoise(float3 pos, float4 params[3])
+{
+    float3 sphereNormal = normalize(pos);
+    float3 axisA = cross(sphereNormal, float3(0, 1, 0));
+    float3 axisB = cross(sphereNormal, axisA);
+    float offsetDst = params[2].w * 0.01;
+    float s0 = ridgidNoise(pos, params);
+    float s1 = ridgidNoise(pos - axisA * offsetDst, params);
+    float s2 = ridgidNoise(pos + axisA * offsetDst, params);
+    float s3 = ridgidNoise(pos - axisB * offsetDst, params);
+    float s4 = ridgidNoise(pos + axisB * offsetDst, params);
+    return (s0 + s1 + s2 + s3 + s4) / 5;
+}
+
+// Craters.cginc: x = distance from the centre in crater radii. Bowl = x^2 - 1, clamped from below by the floor
+// height with a smooth max, then clamped from above by the rim curve with a smooth min. Heights add up.
+float calculateCraterDepth(float3 p)
+{
+    float h = 0;
+    for (int i = 0; i < numCraters; i++)
+    {
+        float x = length(p - craters[i].centre) / max(craters[i].radius, 0.0001);
+        float cavity = x * x - 1;
+        float rimX = min(x - 1 - rimWidth, 0);
+        float rim = rimSteepness * rimX * rimX;
+        float shape = smoothMax(cavity, craters[i].floor, craters[i].smoothness);
+        shape = smoothMin(shape, rim, craters[i].smoothness);
+        h += shape * craters[i].radius;
+    }
+    return h;
+}
+
+[numthreads(256, 1, 1)]
+void CSMain(uint id : SV_DispatchThreadID)
+{
+    if (id >= numVertices) return;
+    const float elevationMultiplier = 0.01;
+    float3 pos = vertices[id];
+    float craterDepth = calculateCraterDepth(pos);
+    float shapeNoise = simpleNoise(pos, noiseParams_shape);
+    float ridge = smoothedRidgidNoise(pos, noiseParams_ridge);
+    float ridge2 = smoothedRidgidNoise(pos, noiseParams_ridge2);
+    heights[id] = 1 + craterDepth + (shapeNoise + ridge + ridge2) * elevationMultiplier;
+}
