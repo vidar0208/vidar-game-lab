@@ -1,0 +1,258 @@
+// Full-scene path tracer.
+// Ported from SebLague/Ray-Tracing (Assets/Scripts/Tracer/RayCommon.hlsl and RayCompute.compute, MIT): PCG random
+// numbers, cosine-weighted diffuse bounces, specular probability and smoothness, glass with Fresnel reflect/refract
+// and absorption, emission, Russian roulette, ray-triangle and ray-box tests, stack-based BVH traversal (nearest
+// child first), camera rays with a small jitter for anti-aliasing, and frame accumulation.
+// Changed: structs padded to float4 for Metal, triangles stored in world space (the scene is static, so no
+// per-model matrices), no sky (closed room lit by emissive surfaces only), debug views removed.
+#pragma kernel RayTrace
+#pragma kernel ResetAccumulated
+
+struct Tri { float4 a, b, c, na, nb, nc; };
+struct Node { float4 mn, mx; int4 info; };          // info.x first child or first triangle, info.y triangle count
+struct Mat { float4 diffuse, emission, specular, absorption, p, q; };
+// p: absorptionStrength, emissionStrength, smoothness, specularProbability; q: ior, flag
+struct ModelI { int4 off; Mat m; };                 // off.x node offset, off.y triangle offset
+
+StructuredBuffer<ModelI> ModelInfo;
+StructuredBuffer<Tri> Triangles;
+StructuredBuffer<Node> Nodes;
+RWTexture2D<float4> FrameRender;
+RWTexture2D<float4> AccumulatedRender;
+uint2 Resolution;
+int MaxBounceCount, NumRaysPerPixel, Frame, renderSeed, modelCount;
+float DivergeStrength;
+float3 ViewParams;
+float4x4 CamLocalToWorldMatrix;
+
+static const float PI = 3.1415;
+static const int MATERIAL_GLASS = 2;
+static const float epsilon = 0.001;
+
+struct Ray { float3 pos, dir, invDir, transmittance; int bounceCount; };
+struct TriangleHitInfo { bool didHit; bool isBackface; float dst; float3 hitPoint; float3 normal; };
+struct ModelHitInfo { bool didHit; bool isBackface; float3 normal; float3 pos; float dst; Mat material; };
+
+uint NextRandom(inout uint state)
+{
+    state = state * 747796405 + 2891336453;
+    uint result = ((state >> ((state >> 28) + 4)) ^ state) * 277803737;
+    result = (result >> 22) ^ result;
+    return result;
+}
+float RandomValue(inout uint state) { return NextRandom(state) / 4294967295.0; }
+float RandomValueNormalDistribution(inout uint state)
+{
+    float theta = 2 * 3.1415926 * RandomValue(state);
+    float rho = sqrt(-2 * log(RandomValue(state)));
+    return rho * cos(theta);
+}
+float3 RandomDirection(inout uint state)
+{
+    float x = RandomValueNormalDistribution(state);
+    float y = RandomValueNormalDistribution(state);
+    float z = RandomValueNormalDistribution(state);
+    return normalize(float3(x, y, z));
+}
+float2 RandomPointInCircle(inout uint rngState)
+{
+    float angle = RandomValue(rngState) * 2 * PI;
+    return float2(cos(angle), sin(angle)) * sqrt(RandomValue(rngState));
+}
+
+TriangleHitInfo RayTriangle(Ray ray, Tri tri, bool cullBackface)
+{
+    float3 edgeAB = tri.b.xyz - tri.a.xyz;
+    float3 edgeAC = tri.c.xyz - tri.a.xyz;
+    float3 triFaceVector = cross(edgeAB, edgeAC);
+    float3 vertRayOffset = ray.pos - tri.a.xyz;
+    float3 rayOffsetPerp = cross(vertRayOffset, ray.dir);
+    float determinant = -dot(ray.dir, triFaceVector);
+    float invDet = 1 / determinant;
+    float dst = dot(vertRayOffset, triFaceVector) * invDet;
+    float u = dot(edgeAC, rayOffsetPerp) * invDet;
+    float v = -dot(edgeAB, rayOffsetPerp) * invDet;
+    float w = 1 - u - v;
+    TriangleHitInfo hitInfo;
+    bool keep = cullBackface ? determinant >= 1E-8 : abs(determinant) >= 1E-8;
+    hitInfo.didHit = keep && dst > 0 && u >= 0 && v >= 0 && w >= 0;
+    float3 smoothNormal = normalize(tri.na.xyz * w + tri.nb.xyz * u + tri.nc.xyz * v);
+    hitInfo.normal = smoothNormal * sign(determinant);
+    hitInfo.isBackface = determinant < 0;
+    hitInfo.hitPoint = ray.pos + ray.dir * dst;
+    hitInfo.dst = dst;
+    return hitInfo;
+}
+
+float RayBoundingBoxDst(Ray ray, float3 boxMin, float3 boxMax)
+{
+    float3 tMin = (boxMin - ray.pos) * ray.invDir;
+    float3 tMax = (boxMax - ray.pos) * ray.invDir;
+    float3 t1 = min(tMin, tMax);
+    float3 t2 = max(tMin, tMax);
+    float tNear = max(max(t1.x, t1.y), t1.z);
+    float tFar = min(min(t2.x, t2.y), t2.z);
+    bool hit = tFar >= tNear && tFar > 0;
+    return hit ? (tNear > 0 ? tNear : 0) : 1e30;
+}
+
+TriangleHitInfo RayTriangleBVH(Ray ray, float rayLength, int nodeOffset, int triOffset, bool cullBackface)
+{
+    TriangleHitInfo result = (TriangleHitInfo)0;
+    result.dst = rayLength;
+    int stack[32];
+    int stackCount = 0;
+    stack[stackCount++] = nodeOffset + 0;
+    while (stackCount > 0)
+    {
+        Node node = Nodes[stack[--stackCount]];
+        if (node.info.y > 0)
+        {
+            for (int i = 0; i < node.info.y; i++)
+            {
+                TriangleHitInfo h = RayTriangle(ray, Triangles[triOffset + node.info.x + i], cullBackface);
+                if (h.didHit && h.dst < result.dst) result = h;
+            }
+        }
+        else
+        {
+            int childIndexA = nodeOffset + node.info.x + 0;
+            int childIndexB = nodeOffset + node.info.x + 1;
+            Node childA = Nodes[childIndexA];
+            Node childB = Nodes[childIndexB];
+            float dstA = RayBoundingBoxDst(ray, childA.mn.xyz, childA.mx.xyz);
+            float dstB = RayBoundingBoxDst(ray, childB.mn.xyz, childB.mx.xyz);
+            bool isNearestA = dstA <= dstB;
+            float dstNear = isNearestA ? dstA : dstB;
+            float dstFar = isNearestA ? dstB : dstA;
+            int childIndexNear = isNearestA ? childIndexA : childIndexB;
+            int childIndexFar = isNearestA ? childIndexB : childIndexA;
+            if (dstFar < result.dst) stack[stackCount++] = childIndexFar;
+            if (dstNear < result.dst) stack[stackCount++] = childIndexNear;
+        }
+    }
+    return result;
+}
+
+ModelHitInfo CalculateRayCollision(Ray worldRay)
+{
+    ModelHitInfo result = (ModelHitInfo)0;
+    result.dst = 1e30;
+    for (int i = 0; i < modelCount; i++)
+    {
+        ModelI model = ModelInfo[i];
+        bool cullBackface = (int)model.m.q.y != MATERIAL_GLASS;
+        TriangleHitInfo hit = RayTriangleBVH(worldRay, result.dst, model.off.x, model.off.y, cullBackface);
+        if (hit.didHit && hit.dst < result.dst)
+        {
+            result.didHit = true;
+            result.isBackface = hit.isBackface;
+            result.dst = hit.dst;
+            result.normal = normalize(hit.normal);
+            result.pos = worldRay.pos + worldRay.dir * hit.dst;
+            result.material = model.m;
+        }
+    }
+    return result;
+}
+
+float CalculateReflectance(float3 inDir, float3 normal, float iorA, float iorB)
+{
+    float refractRatio = iorA / iorB;
+    float cosAngleIn = -dot(inDir, normal);
+    float sinSqrAngleOfRefraction = refractRatio * refractRatio * (1 - cosAngleIn * cosAngleIn);
+    if (sinSqrAngleOfRefraction >= 1) return 1;
+    float cosAngleOfRefraction = sqrt(1 - sinSqrAngleOfRefraction);
+    float denominatorPerpendicular = iorA * cosAngleIn + iorB * cosAngleOfRefraction;
+    float denominatorParallel = iorA * cosAngleIn + iorB * cosAngleOfRefraction;
+    if (min(denominatorPerpendicular, denominatorParallel) < 1E-8) return 1;
+    float rPerpendicular = (iorA * cosAngleIn - iorB * cosAngleOfRefraction) / denominatorPerpendicular;
+    rPerpendicular *= rPerpendicular;
+    float rParallel = (iorB * cosAngleIn - iorA * cosAngleOfRefraction) / denominatorParallel;
+    rParallel *= rParallel;
+    return (rPerpendicular + rParallel) / 2;
+}
+
+float3 Refract(float3 inDir, float3 normal, float iorA, float iorB)
+{
+    float refractRatio = iorA / iorB;
+    float cosAngleIn = -dot(inDir, normal);
+    float sinSqrAngleOfRefraction = refractRatio * refractRatio * (1 - cosAngleIn * cosAngleIn);
+    if (sinSqrAngleOfRefraction > 1) return 0;
+    return refractRatio * inDir + (refractRatio * cosAngleIn - sqrt(1 - sinSqrAngleOfRefraction)) * normal;
+}
+
+float3 Trace(Ray ray, inout uint rngState)
+{
+    float3 totalLight = 0;
+    for (int i = ray.bounceCount; i <= MaxBounceCount; i++)
+    {
+        ModelHitInfo hit = CalculateRayCollision(ray);
+        if (!hit.didHit) break; // no sky: the room is lit only by emissive surfaces
+        Mat material = hit.material;
+        if ((int)material.q.y == MATERIAL_GLASS)
+        {
+            if (hit.isBackface) ray.transmittance *= exp(-hit.dst * material.absorption.rgb * material.p.x);
+            float iorCurrent = hit.isBackface ? material.q.x : 1;
+            float iorNext = hit.isBackface ? 1 : material.q.x;
+            float3 reflectDir = reflect(ray.dir, hit.normal);
+            float3 refractDir = Refract(ray.dir, hit.normal, iorCurrent, iorNext);
+            float reflectWeight = CalculateReflectance(ray.dir, hit.normal, iorCurrent, iorNext);
+            float3 diffuseDir = normalize(hit.normal + RandomDirection(rngState));
+            reflectDir = normalize(lerp(diffuseDir, reflectDir, material.p.w));
+            refractDir = normalize(lerp(-diffuseDir, refractDir, material.p.z));
+            bool followReflection = RandomValue(rngState) <= reflectWeight;
+            ray.dir = followReflection ? reflectDir : refractDir;
+            ray.pos = hit.pos + epsilon * hit.normal * sign(dot(hit.normal, ray.dir));
+        }
+        else
+        {
+            bool isSpecularBounce = material.p.w >= RandomValue(rngState);
+            ray.pos = hit.pos + (hit.normal * epsilon);
+            float3 diffuseDir = normalize(hit.normal + RandomDirection(rngState));
+            float3 specularDir = reflect(ray.dir, hit.normal);
+            ray.dir = normalize(lerp(diffuseDir, specularDir, material.p.z * isSpecularBounce));
+            totalLight += material.emission.rgb * material.p.y * ray.transmittance;
+            ray.transmittance *= isSpecularBounce ? material.specular.rgb : material.diffuse.rgb;
+        }
+        ray.invDir = 1 / ray.dir;
+        float p = max(ray.transmittance.r, max(ray.transmittance.g, ray.transmittance.b));
+        if (RandomValue(rngState) >= p) break;
+        ray.transmittance *= 1 / p;
+    }
+    return totalLight;
+}
+
+[numthreads(8, 8, 1)]
+void RayTrace(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= Resolution.x || id.y >= Resolution.y) return;
+    float2 uv = id.xy / (Resolution - 1.0);
+    float3 camOrigin = mul(CamLocalToWorldMatrix, float4(0, 0, 0, 1)).xyz;
+    uint pixelIndex = id.y * Resolution.x + id.x;
+    uint rngState = pixelIndex + Frame * 719393 + renderSeed;
+    float3 focusPointLocal = float3(uv - 0.5, 1) * ViewParams;
+    float3 focusPoint = mul(CamLocalToWorldMatrix, float4(focusPointLocal, 1)).xyz;
+    float3 camRight = CamLocalToWorldMatrix._m00_m10_m20;
+    float3 camUp = CamLocalToWorldMatrix._m01_m11_m21;
+    float3 total = 0;
+    for (int r = 0; r < NumRaysPerPixel; r++)
+    {
+        float2 jitter = RandomPointInCircle(rngState) * DivergeStrength / Resolution.x;
+        float3 jitteredFocusPoint = focusPoint + camRight * jitter.x + camUp * jitter.y;
+        Ray ray;
+        ray.pos = camOrigin; ray.dir = normalize(jitteredFocusPoint - camOrigin); ray.invDir = 1 / ray.dir;
+        ray.transmittance = 1; ray.bounceCount = 0;
+        total += Trace(ray, rngState);
+    }
+    float3 col = total / NumRaysPerPixel;
+    FrameRender[id.xy] = float4(col, 1);
+    AccumulatedRender[id.xy] += float4(col, 1);
+}
+
+[numthreads(8, 8, 1)]
+void ResetAccumulated(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= Resolution.x || id.y >= Resolution.y) return;
+    AccumulatedRender[id.xy] = 0;
+}
