@@ -78,6 +78,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Particle life on the GPU](Assets/Techniques/particle-life) | Particle life ported to a compute shader: 8,192 particles, all pairs, symmetric vs asymmetric rule tables | |
 | [MLS-MPM: elastic vs fluid](Assets/Techniques/mpm-elastic-fluid) | 2D MLS-MPM on the CPU with Burst: the same particle-grid loop runs a Neo-Hookean elastic solid or a Newtonian fluid, only the stress function changes. | |
 | [Particles from a skinned mesh](Assets/Techniques/skinned-mesh-particles) | Smrvfx's skinned mesh baker writes position, normal and velocity textures every frame; a compute particle system spawns from them with inherited surface velocity. | |
+| [URP Forward vs Forward+ with 1,000 lights](Assets/Techniques/forward-plus-many-lights) | 1,000 moving point lights over one floor mesh: URP Forward (8 lights per object) vs Forward+ (lights binned per screen tile and depth bin), plus the old fix of cutting the floor into tiles. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

@@ -73,6 +73,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`particle-life`](Assets/Techniques/particle-life) | [particle-life](https://github.com/hunar4321/particle-life) by Hunar Ahmad, commit `2562787` | MIT | Update rule, constants and seeded generator ported from particle_life.html to a compute shader |
 | [`mpm-elastic-fluid`](Assets/Techniques/mpm-elastic-fluid) | [incremental_mpm](https://github.com/nialltl/incremental_mpm) by nialltl, commit `2c46592` | MIT | MLS-MPM update, Neo-Hookean and fluid stress, ported to Burst jobs |
 | [`skinned-mesh-particles`](Assets/Techniques/skinned-mesh-particles) | [Smrvfx](https://github.com/keijiro/Smrvfx) by Keijiro Takahashi, commit `898ced9` | Unlicense | SkinnedMeshBaker included unchanged (without the VFX Graph binder); compute particles are new |
+| [`forward-plus-many-lights`](Assets/Techniques/forward-plus-many-lights) | [URP](https://github.com/Unity-Technologies/Graphics) by Unity Technologies, version 17.3.0 | Unity Companion License (not included, used via the Unity API) | demo scene only; the rendering is URP's own Forward and Forward+ |
 
 ## Licence texts
 
@@ -2365,6 +2366,17 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <https://unlicense.org>
+```
+
+### Unity URP, not included (forward-plus-many-lights)
+
+```
+No third-party code is included in this folder.
+
+The technique shown is the Forward+ rendering path of Unity's Universal Render Pipeline
+(com.unity.render-pipelines.universal 17.3.0, Unity-Technologies/Graphics), which is
+licensed under the Unity Companion License and ships with Unity. It is used through
+Unity's public API only; no URP source is copied here.
 ```
 
 ## Character model
