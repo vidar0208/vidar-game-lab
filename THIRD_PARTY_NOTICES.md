@@ -74,6 +74,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`mpm-elastic-fluid`](Assets/Techniques/mpm-elastic-fluid) | [incremental_mpm](https://github.com/nialltl/incremental_mpm) by nialltl, commit `2c46592` | MIT | MLS-MPM update, Neo-Hookean and fluid stress, ported to Burst jobs |
 | [`skinned-mesh-particles`](Assets/Techniques/skinned-mesh-particles) | [Smrvfx](https://github.com/keijiro/Smrvfx) by Keijiro Takahashi, commit `898ced9` | Unlicense | SkinnedMeshBaker included unchanged (without the VFX Graph binder); compute particles are new |
 | [`forward-plus-many-lights`](Assets/Techniques/forward-plus-many-lights) | [URP](https://github.com/Unity-Technologies/Graphics) by Unity Technologies, version 17.3.0 | Unity Companion License (not included, used via the Unity API) | demo scene only; the rendering is URP's own Forward and Forward+ |
+| [`adaptive-probe-volumes`](Assets/Techniques/adaptive-probe-volumes) | Unity SRP Core / URP 17.3 (Unity Companion License), not included | - | Adaptive Probe Volumes vs Light Probe Groups; only my scene code |
 
 ## Licence texts
 
@@ -2377,6 +2378,14 @@ The technique shown is the Forward+ rendering path of Unity's Universal Render P
 (com.unity.render-pipelines.universal 17.3.0, Unity-Technologies/Graphics), which is
 licensed under the Unity Companion License and ships with Unity. It is used through
 Unity's public API only; no URP source is copied here.
+```
+
+### Notice (no third-party code) (adaptive-probe-volumes)
+
+```
+adaptive-probe-volumes: no third-party code is included.
+The technique shown is Adaptive Probe Volumes from Unity's SRP Core / URP packages (Unity Companion License).
+Those packages are installed by Unity and are not part of this repository.
 ```
 
 ## Character model
