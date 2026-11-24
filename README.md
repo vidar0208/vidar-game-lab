@@ -74,6 +74,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [RVO Crowd Avoidance](Assets/Techniques/rvo-crowd-avoidance) | 250 walkers crossing a circle with the RVO2 (ORCA) library: seek + push-apart baseline vs RVO2, short vs long time horizon, overlap and arrival counters | |
 | [Procedural Planet](Assets/Techniques/procedural-planet) | Moon heights from ridge noise and crater curves in a compute shader on a welded cube sphere: noise only vs noise + 500 craters, two crater presets, low sun on the terminator | |
 | [Runtime Mesh Fracture](Assets/Techniques/mesh-fracture) | Runtime fracture with the OpenFracture library: recursive random plane cuts with filled cut faces, pre-fractured vs fractured at impact, 8 vs 64 pieces with timing | |
+| [Mesh deformers as Burst jobs](Assets/Techniques/mesh-deformers) | Twist, bend, ripple and melt chained as Burst jobs on a 247,682-vertex mesh; normals on/off; Burst vs plain C# timing | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

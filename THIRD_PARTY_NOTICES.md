@@ -69,6 +69,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`rvo-crowd-avoidance`](Assets/Techniques/rvo-crowd-avoidance) | [RVO2-CS](https://github.com/snape/RVO2-CS) by the University of North Carolina at Chapel Hill (Jamie Snape et al.), commit `de124a2` | Apache-2.0 | RVO2 library included (one modified file, marked), circle crossing with a baseline and two time horizons |
 | [`procedural-planet`](Assets/Techniques/procedural-planet) | [Solar-System](https://github.com/SebLague/Solar-System) by Sebastian Lague, commit `0c60882` (includes Ashima Arts / Keijiro Takahashi simplex noise, MIT) | MIT | Moon height compute shader with craters and ridge noise on a cube sphere |
 | [`mesh-fracture`](Assets/Techniques/mesh-fracture) | [OpenFracture](https://github.com/dgreenheck/OpenFracture) by Daniel Greenheck, commit `6d0ddff` | MIT | Library included unchanged; runtime plane-cut fracture of procedural props |
+| [`mesh-deformers`](Assets/Techniques/mesh-deformers) | [Deform](https://github.com/keenanwoodall/Deform) by Keenan Woodall, commit `9e57dd3` | MIT | Deformer runtime included unchanged (folder Deform/) |
 
 ## Licence texts
 
@@ -2236,6 +2237,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2021 Daniel Greenheck
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Deform (mesh-deformers)
+
+```
+MIT License
+
+Copyright (c) 2019 Keenan Woodall
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
