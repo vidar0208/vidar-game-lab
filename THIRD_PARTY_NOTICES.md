@@ -63,6 +63,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`mandelbulb-raymarch`](Assets/Techniques/mandelbulb-raymarch) | [Ray-Marching](https://github.com/SebLague/Ray-Marching) by Sebastian Lague, commit `f7e44c1` | MIT | Mandelbulb distance estimate, march loop and source shading ported from Fractal.compute; lighting and zoom added |
 | [`physarum-network`](Assets/Techniques/physarum-network) | [physarum](https://github.com/fogleman/physarum) by Michael Fogleman, commit `704dda7` | MIT | Agent update, deposit, blur/decay and species attraction ported from Go to compute shaders |
 | [`compute-path-tracer`](Assets/Techniques/compute-path-tracer) | [Ray-Tracing](https://github.com/SebLague/Ray-Tracing) by Sebastian Lague, commit `e8981ea` | MIT | GPU path tracer with BVH, glass and sample averaging, compared with URP raster |
+| [`wave-function-collapse`](Assets/Techniques/wave-function-collapse) | [WaveFunctionCollapse](https://github.com/mxgmn/WaveFunctionCollapse) by Maxim Gumin, commit `de7d22e` | MIT | Simple tiled WFC solver building a 3D town from procedural tiles |
 
 ## Licence texts
 
@@ -1907,6 +1908,34 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+
+### mxgmn/WaveFunctionCollapse (MIT) (wave-function-collapse)
+
+```
+MIT License
+
+Copyright (c) 2016 Maxim Gumin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Provided image samples and tiles are not part of WaveFunctionCollapse software.
 ```
 
 ## Character model
