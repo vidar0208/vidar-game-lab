@@ -71,6 +71,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`mesh-fracture`](Assets/Techniques/mesh-fracture) | [OpenFracture](https://github.com/dgreenheck/OpenFracture) by Daniel Greenheck, commit `6d0ddff` | MIT | Library included unchanged; runtime plane-cut fracture of procedural props |
 | [`mesh-deformers`](Assets/Techniques/mesh-deformers) | [Deform](https://github.com/keenanwoodall/Deform) by Keenan Woodall, commit `9e57dd3` | MIT | Deformer runtime included unchanged (folder Deform/) |
 | [`particle-life`](Assets/Techniques/particle-life) | [particle-life](https://github.com/hunar4321/particle-life) by Hunar Ahmad, commit `2562787` | MIT | Update rule, constants and seeded generator ported from particle_life.html to a compute shader |
+| [`mpm-elastic-fluid`](Assets/Techniques/mpm-elastic-fluid) | [incremental_mpm](https://github.com/nialltl/incremental_mpm) by nialltl, commit `2c46592` | MIT | MLS-MPM update, Neo-Hookean and fluid stress, ported to Burst jobs |
 
 ## Licence texts
 
@@ -2290,6 +2291,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2022 Hunar Ahmad
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### incremental_mpm (MIT) (mpm-elastic-fluid)
+
+```
+MIT License
+
+Copyright (c) 2019 niall tl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
