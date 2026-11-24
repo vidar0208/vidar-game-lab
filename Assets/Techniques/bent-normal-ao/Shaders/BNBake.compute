@@ -1,0 +1,51 @@
+// Bent normal + AO bake (after Fewes/BNAO's BNAO shader): for each sample direction an orthographic depth view of
+// all props is rendered, then every atlas texel is tested against it. AO mode in the source keeps a running average
+// of visibility; BN mode adds up the visible directions. Both are done in one pass here (xyz = sum of visible
+// directions, w = visible count). Directions on the far side of the texel's own surface count as blocked
+// ("clamp to hemisphere"). Finalize divides by the sample count and by the AO bias 0.5 (an open flat surface sees
+// half the sphere), and normalises the summed direction into the bent normal.
+#pragma kernel Clear
+#pragma kernel Accumulate
+#pragma kernel Finalize
+
+Texture2D<float4> _PosCache, _NrmCache;
+RWTexture2D<float4> _Acc;
+RWTexture2D<float4> _Out;
+Texture2D<float> _Depth;
+SamplerState sampler_point_clamp;
+float4x4 _SVP;
+float4 _Origin, _Fwd, _Dir;
+uint _Size;
+float _Offset, _Bias, _Samples, _AOBias;
+
+[numthreads(8, 8, 1)]
+void Clear(uint3 id : SV_DispatchThreadID) { if (id.x < _Size && id.y < _Size) _Acc[id.xy] = 0; }
+
+[numthreads(8, 8, 1)]
+void Accumulate(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _Size || id.y >= _Size) return;
+    float4 p = _PosCache[id.xy];
+    if (p.w < 0.5) return;
+    float3 n = _NrmCache[id.xy].xyz;
+    float nd = dot(n, _Dir.xyz);
+    if (nd <= 0) return;
+    float3 q = p.xyz + n * _Offset;
+    float4 c = mul(_SVP, float4(q, 1));
+    float2 uv = c.xy / c.w * 0.5 + 0.5;
+    float d = dot(q - _Origin.xyz, _Fwd.xyz);
+    float sd = _Depth.SampleLevel(sampler_point_clamp, uv, 0);
+    float vis = d <= sd + _Bias * (1.0 + 2.0 * (1.0 - nd)) ? 1 : 0;
+    _Acc[id.xy] += float4(_Dir.xyz * vis, vis);
+}
+
+[numthreads(8, 8, 1)]
+void Finalize(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _Size || id.y >= _Size) return;
+    float4 a = _Acc[id.xy];
+    float3 n = _NrmCache[id.xy].xyz;
+    float3 bn = dot(a.xyz, a.xyz) > 1e-8 ? normalize(a.xyz) : n;
+    float ao = saturate(a.w / _Samples / _AOBias);
+    _Out[id.xy] = _PosCache[id.xy].w > 0.5 ? float4(bn, ao) : float4(0, 1, 0, 1);
+}
