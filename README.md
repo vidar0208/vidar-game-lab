@@ -70,6 +70,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Compute Path Tracer](Assets/Techniques/compute-path-tracer) | GPU path tracer in one compute shader: BVH, glass, mirrors, sample averaging, compared with URP raster | |
 | [Wave Function Collapse Town](Assets/Techniques/wave-function-collapse) | Simple tiled WFC solver (C# port) building a 3D town from 13 procedural tiles, with random-tile and options-left views | |
 | [Reaction-Diffusion](Assets/Techniques/reaction-diffusion) | Gray-Scott reaction-diffusion in a compute shader with lit two-material display, diffusion-only comparison and three feed/kill pairs | |
+| [N-Body Galaxy Collision](Assets/Techniques/nbody-galaxy) | Tiled all-pairs N-body gravity in a compute shader: two galaxies colliding, centre-only vs full N-body, two softening values | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

@@ -65,6 +65,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`compute-path-tracer`](Assets/Techniques/compute-path-tracer) | [Ray-Tracing](https://github.com/SebLague/Ray-Tracing) by Sebastian Lague, commit `e8981ea` | MIT | GPU path tracer with BVH, glass and sample averaging, compared with URP raster |
 | [`wave-function-collapse`](Assets/Techniques/wave-function-collapse) | [WaveFunctionCollapse](https://github.com/mxgmn/WaveFunctionCollapse) by Maxim Gumin, commit `de7d22e` | MIT | Simple tiled WFC solver building a 3D town from procedural tiles |
 | [`reaction-diffusion`](Assets/Techniques/reaction-diffusion) | [RDSystem](https://github.com/keijiro/RDSystem) by Keijiro Takahashi, commit `7899466` | Unlicense | Gray-Scott reaction-diffusion in a compute shader with a lit display |
+| [`nbody-galaxy`](Assets/Techniques/nbody-galaxy) | [GPU-GEMS-NBody-Simulation](https://github.com/Scrawk/GPU-GEMS-NBody-Simulation) by Justin Hawkins (Scrawk), commit `f72de84` | MIT | Tiled all-pairs N-body gravity, two colliding galaxies |
 
 ## Licence texts
 
@@ -1966,6 +1967,32 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <https://unlicense.org>
+```
+
+### Scrawk/GPU-GEMS-NBody-Simulation (MIT) (nbody-galaxy)
+
+```
+MIT License
+
+Copyright (c) 2017 Justin Hawkins
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
 
 ## Character model
