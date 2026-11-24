@@ -53,6 +53,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`order-independent-transparency`](Assets/Techniques/order-independent-transparency) | [OIT_Lab](https://github.com/candycat1992/OIT_Lab) by Lele Feng, commit `54a2e52` | MIT | Weighted blended path (manager script, accumulate, revealage and blend shaders) ported from the built-in pipeline to URP with the same formats, blend states, Weight1 and final blend; URP integration, glass shading and demo scene are new. |
 | [`planar-shadow-map`](Assets/Techniques/planar-shadow-map) | [Unity_URP_Planear_Shadowmap](https://github.com/dreamfairy/Unity_URP_Planear_Shadowmap) by DreamFairy, commit `bf81fea` | MIT | Caster projection, receiver lookup and 4-tap PCF layout ported to Unity 6.3 URP; height stored in a half-float target with a min blend instead of a depth shadow map; director, ground lighting and demo scene are new. |
 | [`grass-drawing-methods`](Assets/Techniques/grass-drawing-methods) | [shaders-6grass](https://github.com/daniel-ilett/shaders-6grass) by Daniel Ilett, commit `d60b9bb` | MIT | Billboard (camera-plane facing, alpha-tested tuft quad) and mesh-grass methods adapted to Unity 6.3 URP as buffer-driven instanced draws with one shared lit shader; tuft texture, blade mesh, ground, sky and director are new. No source textures or meshes used. |
+| [`box-projected-reflections`](Assets/Techniques/box-projected-reflections) | [Unity-Improved-Box-Projected-Reflections](https://github.com/frostbone25/Unity-Improved-Box-Projected-Reflections) by David Matos, commit `435915e` | MIT | Box projection and the approximated contact-hardening mip offset ported from the built-in pipeline shader to a URP shader; probe captured at start; room, props, lighting and director are new. No source art used. |
 
 ## Licence texts
 
@@ -1621,6 +1622,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2022 Daniel Ilett
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### frostbone25/Unity-Improved-Box-Projected-Reflections (box-projected-reflections)
+
+```
+MIT License
+
+Copyright (c) 2023 David Matos
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

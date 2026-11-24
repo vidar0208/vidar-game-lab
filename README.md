@@ -58,6 +58,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Weighted Blended Order-Independent Transparency](Assets/Techniques/order-independent-transparency) | Weighted blended OIT in URP: glass is accumulated into a weighted colour target and a revealage target with order-independent blend states, then composited over the opaque scene in one pass, next to the default sorted transparent queue. | |
 | [Camera-Space Planar Shadow Map](Assets/Techniques/planar-shadow-map) | Shadows for a flat ground plane drawn in the main camera's screen space: casters are slid along the light onto the ground and projected with the main camera, so nearly every shadow-map texel lands on visible ground. Shown next to URP's cascaded shadows. | |
 | [Billboard Cards vs Blade Meshes](Assets/Techniques/grass-drawing-methods) | The same grass field drawn two ways with GPU instancing: 14,000 alpha-tested cards that face the camera plane vs 200,000 seven-triangle blade meshes, same lit shader, same sun and shadows. No geometry shader version (Metal does not support them). | |
+| [Improved Box-Projected Reflections](Assets/Techniques/box-projected-reflections) | One reflection probe in a closed room, sampled three ways: plain cubemap, Unity's default box projection, and box projection with distance-based contact hardening (sharper reflections where the reflected wall is close). URP shader, split-screen and mip-level view. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
