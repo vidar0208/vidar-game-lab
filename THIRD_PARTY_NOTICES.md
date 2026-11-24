@@ -76,6 +76,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`forward-plus-many-lights`](Assets/Techniques/forward-plus-many-lights) | [URP](https://github.com/Unity-Technologies/Graphics) by Unity Technologies, version 17.3.0 | Unity Companion License (not included, used via the Unity API) | demo scene only; the rendering is URP's own Forward and Forward+ |
 | [`adaptive-probe-volumes`](Assets/Techniques/adaptive-probe-volumes) | Unity SRP Core / URP 17.3 (Unity Companion License), not included | - | Adaptive Probe Volumes vs Light Probe Groups; only my scene code |
 | [`recursive-portals`](Assets/Techniques/recursive-portals) | [Portals](https://github.com/SebLague/Portals) by Sebastian Lague, commit `53ff52a` | MIT | Portal.Render, SetNearClipPlane, CameraUtility and the portal shader, ported to URP |
+| [`raymarched-clouds`](Assets/Techniques/raymarched-clouds) | [Clouds](https://github.com/SebLague/Clouds) by Sebastian Lague, commit `fcc997c` | MIT | Clouds shader, noise compute shader (unchanged), noise generator and blue noise texture, ported to a URP full-screen pass |
 
 ## Licence texts
 
@@ -2395,6 +2396,32 @@ Those packages are installed by Unity and are not part of this repository.
 MIT License
 
 Copyright (c) 2020 Sebastian Lague
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### MIT License (SebLague/Clouds) (raymarched-clouds)
+
+```
+MIT License
+
+Copyright (c) 2019 Sebastian Lague
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
