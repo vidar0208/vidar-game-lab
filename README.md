@@ -80,6 +80,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Particles from a skinned mesh](Assets/Techniques/skinned-mesh-particles) | Smrvfx's skinned mesh baker writes position, normal and velocity textures every frame; a compute particle system spawns from them with inherited surface velocity. | |
 | [URP Forward vs Forward+ with 1,000 lights](Assets/Techniques/forward-plus-many-lights) | 1,000 moving point lights over one floor mesh: URP Forward (8 lights per object) vs Forward+ (lights binned per screen tile and depth bin), plus the old fix of cutting the floor into tiles. | |
 | [Adaptive Probe Volumes vs Light Probe Groups](Assets/Techniques/adaptive-probe-volumes) | Unity's APV (per-pixel probe sampling) next to a Light Probe Group, same room and bake | |
+| [Recursive portals in URP](Assets/Techniques/recursive-portals) | Port of SebLague/Portals' camera code to URP: recursion and the oblique near plane | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
