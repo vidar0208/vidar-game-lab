@@ -1,0 +1,52 @@
+// Gray-Scott reaction-diffusion, ported from keijiro/RDSystem (RDSystem.shader, public domain / Unlicense).
+// The source runs it as a Custom Render Texture: pass 0 seeds the grid, pass 1 is one update step.
+// Same seeding rule, same 3 x 3 Laplacian weights (0.05 corners, 0.2 edges, -1 centre), same update and saturate.
+// Moved to a compute shader with two textures swapped each step. React = 0 turns the reaction, feed and kill off
+// (diffusion only), for the comparison in the video.
+#pragma kernel Init
+#pragma kernel Step
+
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Random.hlsl"
+
+Texture2D<float2> Src;
+RWTexture2D<float2> Dst;
+uint W, H, Seed;
+float Pop, Du, Dv, Feed, Kill;
+int React;
+
+[numthreads(8, 8, 1)]
+void Init(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= W || id.y >= H) return;
+    float rnd = GenerateHashedRandomFloat(uint3(id.x, id.y, Seed));
+    Dst[id.xy] = float2(1, rnd < Pop * Pop * 0.01 ? 1 : 0);
+}
+
+float2 S(int2 p) { return Src[uint2((p.x + (int)W) % (int)W, (p.y + (int)H) % (int)H)]; }
+
+[numthreads(8, 8, 1)]
+void Step(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= W || id.y >= H) return;
+    int2 p = int2(id.xy);
+    float2 q = Src[id.xy];
+
+    float2 dq = -q;
+    dq += S(p + int2(-1, -1)) * 0.05;
+    dq += S(p + int2( 0, -1)) * 0.20;
+    dq += S(p + int2( 1, -1)) * 0.05;
+    dq += S(p + int2(-1,  0)) * 0.20;
+    dq += S(p + int2( 1,  0)) * 0.20;
+    dq += S(p + int2(-1,  1)) * 0.05;
+    dq += S(p + int2( 0,  1)) * 0.20;
+    dq += S(p + int2( 1,  1)) * 0.05;
+
+    float ABB = React ? q.x * q.y * q.y : 0;
+    float f = React ? Feed : 0, k = React ? Kill : 0;
+
+    q += float2(dq.x * Du - ABB + f * (1 - q.x),
+                dq.y * Dv + ABB - (k + f) * q.y);
+
+    Dst[id.xy] = saturate(q);
+}

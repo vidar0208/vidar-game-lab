@@ -64,6 +64,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`physarum-network`](Assets/Techniques/physarum-network) | [physarum](https://github.com/fogleman/physarum) by Michael Fogleman, commit `704dda7` | MIT | Agent update, deposit, blur/decay and species attraction ported from Go to compute shaders |
 | [`compute-path-tracer`](Assets/Techniques/compute-path-tracer) | [Ray-Tracing](https://github.com/SebLague/Ray-Tracing) by Sebastian Lague, commit `e8981ea` | MIT | GPU path tracer with BVH, glass and sample averaging, compared with URP raster |
 | [`wave-function-collapse`](Assets/Techniques/wave-function-collapse) | [WaveFunctionCollapse](https://github.com/mxgmn/WaveFunctionCollapse) by Maxim Gumin, commit `de7d22e` | MIT | Simple tiled WFC solver building a 3D town from procedural tiles |
+| [`reaction-diffusion`](Assets/Techniques/reaction-diffusion) | [RDSystem](https://github.com/keijiro/RDSystem) by Keijiro Takahashi, commit `7899466` | Unlicense | Gray-Scott reaction-diffusion in a compute shader with a lit display |
 
 ## Licence texts
 
@@ -1936,6 +1937,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Provided image samples and tiles are not part of WaveFunctionCollapse software.
+```
+
+### keijiro/RDSystem (Unlicense) (reaction-diffusion)
+
+```
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
 ```
 
 ## Character model
