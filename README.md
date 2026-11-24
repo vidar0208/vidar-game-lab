@@ -62,6 +62,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Deep Shadow Maps](Assets/Techniques/deep-shadow-map) | Shadows through fibres: per-texel fragment lists (depth + opacity, up to 16 per texel) built by a compute shader, resolved per pixel on the floor and the fibres. Compared with an ordinary one-depth shadow map built from the same data. | |
 | [Dual Paraboloid Reflections](Assets/Techniques/dual-paraboloid-reflections) | Two paraboloid maps (front and back hemisphere) packed in one texture instead of a six-face cubemap, compared side by side with a cubemap of the same resolution. | |
 | [GeoAO: Vertex Ambient Occlusion](Assets/Techniques/geo-ao) | Per-vertex ambient occlusion computed once at start from 256 orthographic depth views, compared with no AO and with URP's screen-space AO when the occluder is off screen. | |
+| [Distance-Field AO and Soft Shadows](Assets/Techniques/dfao) | Two-level distance fields (a local SDF per prop plus a global field rebuilt every frame) give ambient occlusion and sphere-traced soft shadows, compared with a URP shadow map. | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 

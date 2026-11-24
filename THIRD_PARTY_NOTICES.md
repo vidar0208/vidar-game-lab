@@ -57,6 +57,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`deep-shadow-map`](Assets/Techniques/deep-shadow-map) | [DeepShadowMap](https://github.com/ecidevilin/DeepShadowMap) by Khaos, commit `3ce9a6a` | MIT | Per-texel fragment lists and transmittance resolve adapted to Unity 6.3 URP; fibres splatted by a compute shader instead of rasterized, per-pixel resolve with a 2x2 filter; fibres, frame, floor and director are new. No source models used. |
 | [`dual-paraboloid-reflections`](Assets/Techniques/dual-paraboloid-reflections) | [Dual-Paraboloid-Reflection-Mapping](https://github.com/526077247/Dual-Paraboloid-Reflection-Mapping) by 526077247, commit `5088218` | MIT | dual paraboloid atlas bake and LOD lookup, ported to URP |
 | [`geo-ao`](Assets/Techniques/geo-ao) | [Unity-GeoAO](https://github.com/nezix/Unity-GeoAO) by Xavier Martinez, commit `e2f6966` | MIT | multi-view depth bake and per-vertex visibility test, ported to Unity 6.3 URP with a compute pass |
+| [`dfao`](Assets/Techniques/dfao) | [DFAO-unity](https://github.com/ZephyrL/DFAO-unity) by ZephyrL (OUTBOUNDS, bundles SDFr), commit `08040a7` | MIT | global distance field build, atlas lookup, AO and soft-shadow ray marching, ported to Unity 6.3 URP with a compute pass |
 
 ## Licence texts
 
@@ -1729,6 +1730,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2017 Xavier Martinez
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### DFAO-unity and bundled SDFr (dfao)
+
+```
+MIT License
+
+Copyright (c) 2019 OUTBOUNDS
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

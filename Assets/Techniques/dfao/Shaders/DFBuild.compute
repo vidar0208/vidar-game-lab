@@ -1,0 +1,37 @@
+// Builds the global distance field from the local SDF atlas: the source's GDFUpdate pass (a custom render texture
+// fragment shader) as a compute kernel. Channel r: distance used for AO, g: the conservative "confident" distance used
+// for ray marching. Change: values are stored in metres (RGFloat) instead of divided by the box diagonal, and the
+// ground plane is added analytically.
+#pragma kernel Build
+#include "DFCommon.hlsl"
+
+RWTexture3D<float2> _GDF;
+Texture3D _TextureAtlas;
+StructuredBuffer<VolumeData> _VolumeData;
+int bufferLength, textureCount;
+float4 _AABBmin, _AABBmax, _Res;
+float _GroundY;
+
+[numthreads(8, 8, 8)]
+void Build(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= (uint)_Res.x || id.y >= (uint)_Res.y || id.z >= (uint)_Res.z) return;
+    float3 p = _AABBmin.xyz + (id + 0.5) / _Res.xyz * (_AABBmax.xyz - _AABBmin.xyz);
+    float d1 = 1e9, d2 = 1e9, a, b;
+    for (int i = 0; i < bufferLength; i++)
+    {
+        if (GDFInsideVolume(p, _VolumeData[i]))
+        {
+            a = GDFAtlasTex3D(p, _VolumeData[i], textureCount, _TextureAtlas);
+            d1 = min(d1, a); d2 = min(d2, a);
+        }
+        else
+        {
+            GDFGlobalDistanceToAABBPlus(p, _VolumeData[i], textureCount, _TextureAtlas, a, b);
+            d1 = min(d1, a); d2 = min(d2, b);
+        }
+    }
+    float g = p.y - _GroundY;
+    _GDF[id] = float2(min(d1, g), min(d2, g));
+}
+
