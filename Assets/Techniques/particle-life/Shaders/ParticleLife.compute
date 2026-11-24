@@ -1,0 +1,62 @@
+// One step of particle life, ported from the update loop in particle_life.html (hunar4321/particle-life, MIT).
+// Same rule as the original: every other particle closer than the radius of my colour pushes me with a force of
+// constant size g (rules[myColour][itsColour]) along the line between us; positive g pushes away, negative pulls
+// in. Then wall repel, viscosity, position update and mirrored borders, all as in the original. The original
+// loops over every pair on the CPU; here one GPU thread per particle still checks every other particle, reading
+// them in tiles of 256 through group shared memory. Jacobi update: all forces use the previous step's positions.
+#pragma kernel Step
+
+StructuredBuffer<float4> _Read;    // x, y, vx, vy (pixels, pixels per step)
+RWStructuredBuffer<float4> _Write;
+StructuredBuffer<uint> _Colour;
+StructuredBuffer<float> _Rules;    // _K x _K, row = my colour
+StructuredBuffer<float> _Radius2;  // per colour, squared
+uint _N, _K;
+float _W, _H, _Viscosity, _WallRepel, _TimeScale;
+
+groupshared float2 tileP[256];
+groupshared uint tileC[256];
+
+[numthreads(256, 1, 1)]
+void Step(uint3 id : SV_DispatchThreadID, uint gi : SV_GroupIndex)
+{
+    uint i = id.x;
+    float4 a = _Read[i];
+    uint ca = _Colour[i];
+    float r2 = _Radius2[ca];
+    float fx = 0, fy = 0;
+    for (uint base = 0; base < _N; base += 256)
+    {
+        float4 b = _Read[base + gi];
+        tileP[gi] = b.xy; tileC[gi] = _Colour[base + gi];
+        GroupMemoryBarrierWithGroupSync();
+        for (uint j = 0; j < 256; j++)
+        {
+            float dx = a.x - tileP[j].x, dy = a.y - tileP[j].y;
+            float d = dx * dx + dy * dy;
+            if (d > 0 && d < r2)
+            {
+                float F = _Rules[ca * _K + tileC[j]] / sqrt(d);
+                fx += F * dx; fy += F * dy;
+            }
+        }
+        GroupMemoryBarrierWithGroupSync();
+    }
+    if (_WallRepel > 0)
+    {
+        float w = _WallRepel, s = 0.1;
+        if (a.x < w) fx += (w - a.x) * s;
+        if (a.x > _W - w) fx += (_W - w - a.x) * s;
+        if (a.y < w) fy += (w - a.y) * s;
+        if (a.y > _H - w) fy += (_H - w - a.y) * s;
+    }
+    float vmix = 1.0 - _Viscosity;
+    a.z = a.z * vmix + fx * _TimeScale;
+    a.w = a.w * vmix + fy * _TimeScale;
+    a.x += a.z; a.y += a.w;
+    if (a.x < 0) { a.x = -a.x; a.z = -a.z; }
+    if (a.x >= _W) { a.x = 2 * _W - a.x; a.z = -a.z; }
+    if (a.y < 0) { a.y = -a.y; a.w = -a.w; }
+    if (a.y >= _H) { a.y = 2 * _H - a.y; a.w = -a.w; }
+    _Write[i] = a;
+}

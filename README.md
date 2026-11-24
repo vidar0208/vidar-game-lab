@@ -75,6 +75,7 @@ Videos and write-ups: [x.com/vidar_0208](https://x.com/vidar_0208) and [vidar.ga
 | [Procedural Planet](Assets/Techniques/procedural-planet) | Moon heights from ridge noise and crater curves in a compute shader on a welded cube sphere: noise only vs noise + 500 craters, two crater presets, low sun on the terminator | |
 | [Runtime Mesh Fracture](Assets/Techniques/mesh-fracture) | Runtime fracture with the OpenFracture library: recursive random plane cuts with filled cut faces, pre-fractured vs fractured at impact, 8 vs 64 pieces with timing | |
 | [Mesh deformers as Burst jobs](Assets/Techniques/mesh-deformers) | Twist, bend, ripple and melt chained as Burst jobs on a 247,682-vertex mesh; normals on/off; Burst vs plain C# timing | |
+| [Particle life on the GPU](Assets/Techniques/particle-life) | Particle life ported to a compute shader: 8,192 particles, all pairs, symmetric vs asymmetric rule tables | |
 
 Each folder has a README with the full write-up, the source project and its licence, and a preview frame.
 
