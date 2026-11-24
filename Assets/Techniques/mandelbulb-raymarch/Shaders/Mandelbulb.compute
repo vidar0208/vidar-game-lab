@@ -1,0 +1,176 @@
+// Mandelbulb ray marcher.
+// Ported from SebLague/Ray-Marching (Assets/Scripts/Fractal/Fractal.compute, MIT): the Mandelbulb distance estimate
+// and its iteration loop, the camera rays, the march loop and the "source shading" mode (_Mode 0: normal + escape
+// count colours, step-count rim, fixed epsilon 0.001).
+// Added here (_Mode 1): a hit threshold that grows with distance (about one pixel wide), so the camera can move
+// 100x closer; a bounding sphere of radius 2; orbit-trap colours; a warm key light with soft shadows; distance
+// estimate AO; a cool rim light; a background glow from the step count. The fractal's pole axis is turned to +Y.
+#pragma kernel CSMain
+
+RWTexture2D<float4> Dest;
+float4x4 _CamToWorld, _CamInvProj;
+float3 _LightDir;          // direction the light travels (the source passes light.transform.forward)
+float _Power, _PixAng, _Darkness;
+int _Iter, _Mode, _X0, _W, _H;
+float3 _ColA, _ColB;
+
+static const float maxDst = 200;
+static const int maxStepCount = 250;
+
+// Source distance estimate (Hvidtfeldts' Mandelbulb DE). trap = smallest |z|^2 seen (my addition, for colour).
+float2 SceneInfo(float3 position, out float trap)
+{
+    position = position.xzy;
+    float3 z = position;
+    float dr = 1.0;
+    float r = 0.0;
+    int iterations = 0;
+    trap = 1e9;
+    for (int i = 0; i < _Iter; i++)
+    {
+        iterations = i;
+        r = length(z);
+        if (r > 2) break;
+        float theta = acos(z.z / r);
+        float phi = atan2(z.y, z.x);
+        dr = pow(r, _Power - 1.0) * _Power * dr + 1.0;
+        float zr = pow(r, _Power);
+        theta = theta * _Power;
+        phi = phi * _Power;
+        z = zr * float3(sin(theta) * cos(phi), sin(phi) * sin(theta), cos(theta));
+        z += position;
+        trap = min(trap, dot(z, z));
+    }
+    float dst = 0.5 * log(r) * r / dr;
+    return float2(iterations, dst);
+}
+
+float DE(float3 p) { float t; return SceneInfo(p, t).y; }
+
+float3 SourceNormal(float3 p)
+{
+    const float epsilon = 0.001;
+    float x = DE(float3(p.x + epsilon, p.y, p.z)) - DE(float3(p.x - epsilon, p.y, p.z));
+    float y = DE(float3(p.x, p.y + epsilon, p.z)) - DE(float3(p.x, p.y - epsilon, p.z));
+    float z = DE(float3(p.x, p.y, p.z + epsilon)) - DE(float3(p.x, p.y, p.z - epsilon));
+    return normalize(float3(x, y, z));
+}
+
+float3 Normal(float3 p, float h)
+{
+    const float2 k = float2(1, -1);
+    return normalize(k.xyy * DE(p + k.xyy * h) + k.yyx * DE(p + k.yyx * h) + k.yxy * DE(p + k.yxy * h) + k.xxx * DE(p + k.xxx * h));
+}
+
+float Shadow(float3 p, float3 l, float eps)
+{
+    float res = 1, t = eps * 20;
+    for (int i = 0; i < 96 && t < 3.0; i++)
+    {
+        float h = DE(p + l * t);
+        if (h < eps * 0.25) return 0;
+        res = min(res, 8.0 * h / t);
+        t += clamp(h, eps * 2, 0.25);
+    }
+    return saturate(res);
+}
+
+float AO(float3 p, float3 n, float s)
+{
+    float occ = 0, w = 1;
+    for (int i = 1; i <= 5; i++)
+    {
+        float h = s * i / 5.0;
+        occ += (h - DE(p + n * h)) / s * w;
+        w *= 0.6;
+    }
+    return saturate(1 - occ * 0.9);
+}
+
+[numthreads(8, 8, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    uint2 px = uint2(id.x + _X0, id.y);
+    if ((int)px.x >= _W || (int)px.y >= _H) return;
+    float2 uv = (px + 0.5) / float2(_W, _H);
+    float3 origin = mul(_CamToWorld, float4(0, 0, 0, 1)).xyz;
+    float3 dir = mul(_CamInvProj, float4(uv * 2 - 1, 0, 1)).xyz;
+    dir = normalize(mul(_CamToWorld, float4(dir, 0)).xyz);
+
+    if (_Mode == 0)
+    {
+        // source shading, as in Fractal.compute
+        float4 result = lerp(float4(51, 3, 20, 1), float4(16, 6, 28, 1), uv.y) / 255.0;
+        float3 ro = origin;
+        float rayDst = 0;
+        int marchSteps = 0;
+        while (rayDst < maxDst && marchSteps < maxStepCount)
+        {
+            marchSteps++;
+            float trap;
+            float2 sceneInfo = SceneInfo(ro, trap);
+            float dst = sceneInfo.y;
+            if (dst <= 0.001)
+            {
+                float escapeIterations = sceneInfo.x;
+                float3 normal = SourceNormal(ro - dir * 0.001 * 2);
+                float colourA = saturate(dot(normal * .5 + .5, -_LightDir));
+                float colourB = saturate(escapeIterations / 16.0);
+                float3 colourMix = saturate(colourA * _ColA + colourB * _ColB);
+                result = float4(colourMix, 1);
+                break;
+            }
+            ro += dir * dst;
+            rayDst += dst;
+        }
+        float rim = marchSteps / _Darkness;
+        Dest[px] = float4(result.rgb * rim, 1);
+        return;
+    }
+
+    // my shading
+    float3 bg = lerp(float3(0.010, 0.010, 0.020), float3(0.045, 0.030, 0.070), uv.y);
+    float b = dot(origin, dir), c2 = dot(origin, origin) - 4.0, disc = b * b - c2;
+    float t = 0;
+    if (disc > 0) t = max(0, -b - sqrt(disc));
+    float tEnd = disc > 0 ? -b + sqrt(disc) : -1;
+    int steps = 0; bool hit = false; float eps = 0;
+    float trapH = 1; float minRatio = 1e9;
+    for (; steps < 400 && t < tEnd; steps++)
+    {
+        float3 p = origin + dir * t;
+        float trap;
+        float d = SceneInfo(p, trap).y;
+        eps = max(t * _PixAng * 0.75, 2e-6);
+        minRatio = min(minRatio, d / max(t, 1e-4));
+        if (d < eps) { hit = true; trapH = trap; break; }
+        t += d * 0.95;
+    }
+    if (!hit && steps >= 400) hit = true; // ran out of steps grazing the surface: count it as a hit
+    float3 col;
+    if (hit)
+    {
+        float3 p = origin + dir * t;
+        float3 n = Normal(p, eps * 0.5);
+        float3 L = -_LightDir;
+        float3 q = p + n * eps * 4;
+        float sh = Shadow(q, L, eps);
+        float ao = AO(q, n, max(t * 0.06, eps * 40));
+        float tr = saturate(sqrt(trapH));
+        float3 alb = lerp(float3(0.75, 0.38, 0.16), float3(0.96, 0.84, 0.64), smoothstep(0.3, 0.9, tr));
+        alb = lerp(float3(0.05, 0.28, 0.34), alb, smoothstep(0.0, 0.15, tr));
+        float3 key = float3(1.0, 0.78, 0.55) * 3.4;
+        float dif = saturate(dot(n, L)) * sh;
+        float3 fill = float3(0.10, 0.15, 0.28) * (0.55 + 0.45 * n.y) * ao;
+        float fr = pow(1 - saturate(dot(n, -dir)), 3);
+        float3 rim = float3(0.35, 0.58, 1.0) * fr * ao * 0.9;
+        float spec = pow(saturate(dot(n, normalize(L - dir))), 40) * sh * 0.35;
+        col = alb * (key * dif + fill) + rim + key * spec;
+    }
+    else
+    {
+        float g = pow(saturate(steps / 110.0), 2.0);
+        col = bg + float3(0.95, 0.45, 0.18) * g * 0.55;
+    }
+    Dest[px] = float4(col, 1);
+}
