@@ -55,6 +55,7 @@ Each technique folder is based on an open-source project. The project's licence 
 | [`grass-drawing-methods`](Assets/Techniques/grass-drawing-methods) | [shaders-6grass](https://github.com/daniel-ilett/shaders-6grass) by Daniel Ilett, commit `d60b9bb` | MIT | Billboard (camera-plane facing, alpha-tested tuft quad) and mesh-grass methods adapted to Unity 6.3 URP as buffer-driven instanced draws with one shared lit shader; tuft texture, blade mesh, ground, sky and director are new. No source textures or meshes used. |
 | [`box-projected-reflections`](Assets/Techniques/box-projected-reflections) | [Unity-Improved-Box-Projected-Reflections](https://github.com/frostbone25/Unity-Improved-Box-Projected-Reflections) by David Matos, commit `435915e` | MIT | Box projection and the approximated contact-hardening mip offset ported from the built-in pipeline shader to a URP shader; probe captured at start; room, props, lighting and director are new. No source art used. |
 | [`deep-shadow-map`](Assets/Techniques/deep-shadow-map) | [DeepShadowMap](https://github.com/ecidevilin/DeepShadowMap) by Khaos, commit `3ce9a6a` | MIT | Per-texel fragment lists and transmittance resolve adapted to Unity 6.3 URP; fibres splatted by a compute shader instead of rasterized, per-pixel resolve with a 2x2 filter; fibres, frame, floor and director are new. No source models used. |
+| [`dual-paraboloid-reflections`](Assets/Techniques/dual-paraboloid-reflections) | [Dual-Paraboloid-Reflection-Mapping](https://github.com/526077247/Dual-Paraboloid-Reflection-Mapping) by 526077247, commit `5088218` | MIT | dual paraboloid atlas bake and LOD lookup, ported to URP |
 
 ## Licence texts
 
@@ -1675,6 +1676,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2019 Khaos
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### 526077247/Dual-Paraboloid-Reflection-Mapping (dual-paraboloid-reflections)
+
+```
+MIT License
+
+Copyright (c) 2023 大大的奥斯卡
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
