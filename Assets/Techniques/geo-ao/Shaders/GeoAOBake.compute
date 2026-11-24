@@ -1,0 +1,35 @@
+// GeoAO bake, step 2 (the source's VertexAOCompute pass, moved to a compute shader): for every vertex, project it into
+// this direction's depth view and test whether anything sits in front of it. The source counts visible views and
+// doubles the sum (a closed mesh sees half the sphere). Here the directions cover the upper hemisphere (sky) and each
+// visible view is weighted by the cosine with the vertex normal; the weights are summed too, to normalise at the end.
+#pragma kernel Clear
+#pragma kernel Accumulate
+
+StructuredBuffer<float3> _Pos;
+StructuredBuffer<float3> _Nrm;
+RWStructuredBuffer<float2> _Acc;
+Texture2D<float> _Depth;
+SamplerState sampler_point_clamp;
+float4x4 _SVP;
+float4 _Origin, _Fwd, _Ldir;
+uint _Count;
+float _Bias, _Offset;
+
+[numthreads(256, 1, 1)]
+void Clear(uint id : SV_DispatchThreadID) { if (id < _Count) _Acc[id] = 0; }
+
+[numthreads(256, 1, 1)]
+void Accumulate(uint id : SV_DispatchThreadID)
+{
+    if (id >= _Count) return;
+    float3 n = _Nrm[id];
+    float w = saturate(dot(n, _Ldir.xyz));
+    if (w <= 0) return;
+    float3 q = _Pos[id] + n * _Offset;
+    float4 c = mul(_SVP, float4(q, 1));
+    float2 uv = c.xy / c.w * 0.5 + 0.5;
+    float d = dot(q - _Origin.xyz, _Fwd.xyz);
+    float sd = _Depth.SampleLevel(sampler_point_clamp, uv, 0);
+    float vis = d <= sd + _Bias ? 1 : 0;
+    _Acc[id] += float2(vis * w, w);
+}
