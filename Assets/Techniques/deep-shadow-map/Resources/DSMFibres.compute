@@ -1,0 +1,97 @@
+// Fibre tassels and the deep shadow map, all on the GPU.
+//   KReset  clears the per-texel fragment counts and the nearest-depth map
+//   KBuild  writes the fibre points (3 tassels, swaying) and the points of the solid frame (rod + two posts)
+//   KSplat  projects every point into the light's orthographic view and appends (depth, alpha) to that texel's list,
+//           like the source's DeepShadowMap pass (InterlockedAdd on a per-texel counter, up to N entries per texel).
+//           It also keeps the nearest depth per texel: that is the ordinary one-depth shadow map used for comparison.
+// The source rasterizes caster triangles from the light; here the casters are fibres, so each fibre is splatted as
+// points about one texel apart and a point is skipped when it lands in the same texel as the previous point.
+#pragma kernel KReset
+#pragma kernel KBuild
+#pragma kernel KSplat
+
+RWStructuredBuffer<uint> _Count;      // dim*dim
+RWStructuredBuffer<uint> _Nearest;    // dim*dim, asuint of the nearest depth (depths are positive)
+RWStructuredBuffer<float2> _Frags;    // dim*dim*N: (depth, alpha)
+RWStructuredBuffer<float4> _Points;   // xyz, alpha (0 = unused)
+
+uint _Dim, _MaxFrags, _Strands, _Segs, _PerTassel, _SolidLines, _SolidSegs;
+float _Time, _FibreAlpha, _Len;
+float4 _LC, _LR, _LU, _LF;            // light-space centre, right, up, forward(travel); _LC.w = half size, _LF.w = depth range
+float4 _Tassel0, _Tassel1, _Tassel2;  // attach points
+
+float Hash(uint n) { n = (n << 13u) ^ n; n = n * (n * n * 15731u + 789221u) + 1376312589u; return float(n & 0x7fffffffu) / float(0x7fffffff); }
+
+[numthreads(64, 1, 1)]
+void KReset(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _Dim * _Dim) return;
+    _Count[id.x] = 0; _Nearest[id.x] = asuint(1.0f);
+}
+
+float3 SolidPoint(uint ln, uint k)
+{
+    // three cylinders: rod along x at y 1.6 (r 0.025), posts at x = +-1.35 from the floor to 1.6 (r 0.03)
+    uint part = ln % 3; uint ring = ln / 3; uint rings = _SolidLines / 3;
+    float a = ring * 6.2831853 / rings; float t = k / (float)(_SolidSegs - 1);
+    if (part == 0) return float3(lerp(-1.38, 1.38, t), 1.6 + cos(a) * 0.025, sin(a) * 0.025);
+    float x = part == 1 ? -1.35 : 1.35;
+    return float3(x + cos(a) * 0.03, lerp(0.0, 1.62, t), sin(a) * 0.03);
+}
+
+[numthreads(64, 1, 1)]
+void KBuild(uint3 id : SV_DispatchThreadID)
+{
+    uint hairN = _Strands * _Segs;
+    if (id.x < hairN)
+    {
+        uint s = id.x / _Segs, k = id.x % _Segs;
+        uint ti = min(s / _PerTassel, 2u);
+        float3 attach = ti == 0 ? _Tassel0.xyz : (ti == 1 ? _Tassel1.xyz : _Tassel2.xyz);
+        float a = Hash(s * 7u + 1u) * 6.2831853, r0 = sqrt(Hash(s * 7u + 2u)), len = _Len * (0.86 + 0.22 * Hash(s * 7u + 3u));
+        float ph = Hash(s * 7u + 4u) * 6.2831853;
+        float u = k / (float)(_Segs - 1);
+        // bound at the top (a short wrapped neck), then the fibres spread out towards the bottom
+        float neck = saturate((u * len - 0.07) / 0.12);
+        float rad = r0 * (0.02 + neck * (0.07 + 0.17 * pow(u, 1.2)));
+        float3 p = attach + float3(cos(a) * rad, -u * len, sin(a) * rad);
+        p.xz += float2(sin(u * 11.0 + ph), cos(u * 9.0 + ph)) * 0.004 * neck;
+        // gentle sway, more at the tips, each tassel with its own phase
+        float sw = pow(u, 1.6);
+        p.z += sw * (0.045 * sin(_Time * 1.25 + ti * 1.9) + 0.008 * sin(_Time * 3.1 + ph));
+        p.x += sw * 0.02 * sin(_Time * 0.9 + ti * 2.6);
+        _Points[id.x] = float4(p, _FibreAlpha);
+        return;
+    }
+    uint j = id.x - hairN;
+    if (j >= _SolidLines * _SolidSegs) return;
+    _Points[id.x] = float4(SolidPoint(j / _SolidSegs, j % _SolidSegs), 1.0);
+}
+
+float3 ToLight(float3 p)
+{
+    float3 d = p - _LC.xyz;
+    return float3(dot(d, _LR.xyz) / (2.0 * _LC.w) + 0.5, dot(d, _LU.xyz) / (2.0 * _LC.w) + 0.5, (dot(d, _LF.xyz) + _LF.w) / (2.0 * _LF.w));
+}
+
+[numthreads(64, 1, 1)]
+void KSplat(uint3 id : SV_DispatchThreadID)
+{
+    uint hairN = _Strands * _Segs, total = hairN + _SolidLines * _SolidSegs;
+    if (id.x >= total) return;
+    float4 pt = _Points[id.x];
+    float3 l = ToLight(pt.xyz);
+    if (any(l.xy < 0) || any(l.xy >= 1)) return;
+    int2 tx = int2(l.xy * _Dim);
+    uint segs = id.x < hairN ? _Segs : _SolidSegs;
+    uint k = id.x < hairN ? id.x % _Segs : (id.x - hairN) % _SolidSegs;
+    if (k > 0)
+    {
+        int2 prev = int2(ToLight(_Points[id.x - 1].xyz).xy * _Dim);
+        if (all(prev == tx)) return;   // same texel as the previous point of this fibre: count the fibre once
+    }
+    uint idx = tx.y * _Dim + tx.x, n;
+    InterlockedAdd(_Count[idx], 1u, n);
+    if (n < _MaxFrags) _Frags[idx * _MaxFrags + n] = float2(l.z, pt.w);
+    uint o; InterlockedMin(_Nearest[idx], asuint(l.z), o);
+}
